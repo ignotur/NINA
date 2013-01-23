@@ -1,0 +1,45 @@
+#!/bin/bash
+cat description > makefile
+
+#echo $1, $2, $3
+
+if [ -z "$1" ] || [ -z "$2" ] || [ -z "$3" ]
+then echo "Error!"
+echo "The list of argument should contain three separate value. e.g ./create_make mono A I"
+exit 1
+fi
+
+if [ $1 != para ] && [ $1 != mono ] && [ $1 != otl ]
+then echo "Error! $1 should have value 'mono' for one thread, 'para' for multithread and 'otl' for debuging"
+exit 1
+else
+
+	if [ $2 != A ] && [ $2 != B ] && [ $2 != C ]
+	then echo "Error! The second argument ($2) should have one of the following values:"
+	head -n 10 description | tail -n 3 
+	exit 1
+	else
+
+		if [ $3 != I ] && [ $3 != II ] && [ $3 != III ] && [ $3 != IV ] && [ $3 != V ]
+		then echo "Error! The third argument ($3) should have one of the following values:"
+		head -n 15 description | tail -n 5
+		exit 1
+fi
+fi
+fi
+
+if [ $1 == paral ]
+then echo "keys = -fopenmp" >> makefile
+else
+echo "keys = " >> makefile
+fi
+
+#echo "We are here"
+echo "main:         ./ne2001_f/libNE2001.a 	\$(list_$1) \$(list_$2) \$(list_$3)">> makefile
+echo "		cp $2_lum_model.h lum_model.h"                                      >> makefile
+echo "		cp $3_field_decay_model.h field_decay_model.h"                      >> makefile
+echo "		cp input_$2$3.txt input.txt"                                        >> makefile
+echo "		g++  -O3 \$(list_$1) \$(list_$2) \$(list_$3) -o population.out  -L./ne2001_f/ -lNE2001 -lf2c -lm \$(keys)" >> makefile	
+echo "		g++ \$(list_param) \$(list_$2) \$(list_$3) -o param.out -L./ne2001_f/ -lNE2001 -lf2c -lm" >> makefile
+
+cat backup_for_make >> makefile
