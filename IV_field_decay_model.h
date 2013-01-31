@@ -8,18 +8,18 @@ using namespace std;
 
 class parametrs_B {
 public:
-double tau_ohm;
+    double tau_ohm;
 
-parametrs_B (ifstream *);
-//parametrs_B (parametrs_B *);
+    parametrs_B (ifstream *);
+    //parametrs_B (parametrs_B *);
 
-void print_description (ostream *);
-void print_parametrs   (ostream *);
-void print_short       (ostream *);
+    void print_description (ostream *);
+    void print_parametrs   (ostream *);
+    void print_short       (ostream *);
 
-//double get_alpha   ();
-double get_tau_ohm (); 
- 
+    //double get_alpha   ();
+    double get_tau_ohm ();
+
 private:
 
 };
