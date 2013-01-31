@@ -41,8 +41,8 @@ int main (int argc, char * argv[]) {
     }
 
 
-    P_distr p_distr(&in_p);
-    B_distr b_distr(&in_b);
+    PDistr p_distr(&in_p);
+    BDistr b_distr(&in_b);
 
     p_distr.print_param        (&cout);
     b_distr.print_param        (&cout);
@@ -53,7 +53,7 @@ int main (int argc, char * argv[]) {
     cout<<"//----------------------------------------------------------//"<<endl;
     cout<<"// Инициализация расчётов.                                  //"<<endl;
     srand(time(0));
-    T_map T_copy;
+    TMap T_copy;
 
     cout<<"// Инициализация расчётов закончена.                        //"<<endl;
     cout<<"//----------------------------------------------------------//"<<endl;
@@ -75,8 +75,8 @@ int main (int argc, char * argv[]) {
 
 
 
-    special_star sun;
-    special_star sun_nowaday;
+    SpecialStar sun;
+    SpecialStar sun_nowaday;
     double now = 0, shift;
     double P, dot_P, x, y, z, B;
     double dist_to_sun, lumin;
@@ -107,15 +107,15 @@ int main (int argc, char * argv[]) {
     out_about<<"// Запушено "<<asctime(timeinfo);
 
 
-    star_OB      * ancester;
-    neutron_star * descendant;
+    OBStar      * ancester;
+    NeutronStar * descendant;
 
     for (int i = 0; i < number_millenium; i++)		{
         sun.move_to(T);
 
         for (int j = 0; j < number_stars; j++)	{
             rand_shift = rand()%500;
-            ancester = new star_OB (T + rand_shift, &sun);
+            ancester = new OBStar (T + rand_shift, &sun);
 
             if (!(i%10000) && j==0) {
                 cout<<T<<"\t"<<i<<endl;
@@ -126,7 +126,7 @@ int main (int argc, char * argv[]) {
 
             if (shift + T + rand_shift < 0)		{
                 ancester->move_to (shift); // На сколько нужно сдвинуть, действительно мы не знаем времени рождения звезды
-                descendant = new neutron_star (T + shift + rand_shift, ancester, &param_B, &p_distr, &b_distr);
+                descendant = new NeutronStar (T + shift + rand_shift, ancester, &param_B, &p_distr, &b_distr);
                 P     = descendant->get_P(now/*,&param_B*/);
                 out_str << descendant->get_velocity_x()<<endl;
 

@@ -11,7 +11,7 @@ using namespace std;
 // интегрирования дифференциального уравнения для электромагнитного
 // дипольного излучения и токовых потерь
 
-double neutron_star::get_P(double t/*, parametrs_B * param*/) {
+double NeutronStar::get_P(double t/*, parametrs_B * param*/) {
     double P_res, I, tmp, tau_Hall, tau_ohm, t_step, I_dp, k_1, k_2, k_3, k_4, kx_1, kx_2, kx_3, kx_4, xi_res, diff_t;
     double param, intpart, fracpart, perm;
     t = t - tau;
@@ -64,7 +64,7 @@ double neutron_star::get_P(double t/*, parametrs_B * param*/) {
 //-------------------------------------------------------------------
 
 
-double neutron_star::get_incl(double t) {
+double NeutronStar::get_incl(double t) {
     double res, I_dp;
 
     return I_dp;
@@ -74,7 +74,7 @@ double neutron_star::get_incl(double t) {
 // Первая производная периода. Формулы взяты из исходного дифферен-
 // циального уравнения
 
-double neutron_star::get_dot_P (double t/*, parametrs_B * param*/) {
+double NeutronStar::get_dot_P (double t/*, parametrs_B * param*/) {
     double res, I, tau_Hall, tau_ohm, I_dp;
 
     res = pow(get_B(t), 2.)/2e39/get_P(t);
@@ -88,7 +88,7 @@ double neutron_star::get_dot_P (double t/*, parametrs_B * param*/) {
 // Падение магнитного поля в соотвествии со статьёй Pons, 2009
 // Формула получена из личной переписки
 
-double neutron_star::get_B (double T/*, parametrs_B * param*/) {
+double NeutronStar::get_B (double T/*, parametrs_B * param*/) {
     double res_B, B_min;
     double tau_Hall   = paramet_B->get_tau_Hall();
     double tau_ohm = paramet_B->get_tau_ohm();

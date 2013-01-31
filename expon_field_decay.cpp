@@ -3,7 +3,7 @@
 
 using namespace std;
 
-double neutron_star::get_B (double t) {
+double NeutronStar::get_B (double t) {
     //double res, A_1 = 0.85766, A_2 = 0.14234;
     double res, A_1 = 0.65, A_2 = 0.35;
 
@@ -14,11 +14,11 @@ double neutron_star::get_B (double t) {
     return res;
 }
 
-double neutron_star::get_incl (double t) {
+double NeutronStar::get_incl (double t) {
     return i_incl;
 }
 
-double neutron_star::get_P(double t) {
+double NeutronStar::get_P(double t) {
     //double res, I, t_tmp, A_1 = 0.85766, A_2 = 0.14234;
     double res, I, t_tmp, A_1 = 0.65, A_2 = 0.35;
 
@@ -39,7 +39,7 @@ double neutron_star::get_P(double t) {
     return res;
 }
 
-double neutron_star::get_dot_P (double t) {
+double NeutronStar::get_dot_P (double t) {
     double res, I;
     I = 2./5. * M*M_sol*pow(R,2);
     //res = 8*pi*pi*pow(R,6)/3./pow(light_velocity, 3)/I/get_P(t)*pow(get_B(t),2);

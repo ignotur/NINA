@@ -3,15 +3,15 @@
 
 using namespace std;
 
-double neutron_star::get_B (double t) {
+double NeutronStar::get_B (double t) {
     return B;
 }
 
-double neutron_star::get_incl (double t) {
+double NeutronStar::get_incl (double t) {
     return i_incl;
 }
 
-double neutron_star::get_P(double t) {
+double NeutronStar::get_P(double t) {
     double res, I;
     t = t - tau;
     //I = 2./5. * M*M_sol*pow(R,2);
@@ -23,7 +23,7 @@ double neutron_star::get_P(double t) {
     return res;
 }
 
-double neutron_star::get_dot_P (double t) {
+double NeutronStar::get_dot_P (double t) {
     double res, I;
     //I = 2./5. * M*M_sol*pow(R,2);
     //res = pow(B/3.2e19, 2)/get_P(t);

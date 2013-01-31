@@ -10,10 +10,10 @@ using namespace std;
 //-----------------------------------------------------------------------//
 //-----------------------------------------------------------------------//
 // Декларация функций
-double S_min (double, double, float, double, double, double, float, T_map *);
+double S_min (double, double, float, double, double, double, float, TMap *);
 //-----------------------------------------------------------------------//
 
-double neutron_star::is_pulsar_visible (double t, special_star * sun, T_map * T_copy, parametrs_lum * param) {
+double NeutronStar::is_pulsar_visible (double t, SpecialStar * sun, TMap * T_copy, parametrs_lum * param) {
     double res, time_tmpl;
     float l, b, sm, DM;
     double dist_to_sun, w50, lum_0, lum_min = 0.3, omega, theta;

@@ -11,11 +11,11 @@ using namespace std;
 //-----------------------------------------------------------------------//
 //-----------------------------------------------------------------------//
 // Декларация функций
-double S_min (double, double, float, double, double, double, float, T_map *);
+double S_min (double, double, float, double, double, double, float, TMap *);
 double norm_distr();
 //-----------------------------------------------------------------------//
 
-double neutron_star::is_pulsar_visible (double t, special_star * sun, T_map * T_copy, parametrs_lum * param) {
+double NeutronStar::is_pulsar_visible (double t, SpecialStar * sun, TMap * T_copy, parametrs_lum * param) {
     float l, b, sm, DM;
     double L, eps_P = -1.5, eps_dot_P = 0.5, L_corr=0.8, L_0 = 0.18e-3;
     double dist_to_sun, lum_min, w50;

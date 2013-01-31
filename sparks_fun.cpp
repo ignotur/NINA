@@ -23,14 +23,14 @@ using namespace std;
 
 //-----------------------------------------------------------------------//
 // Декларация функций
-double S_min (double, double, float, double, double, double, float, T_map *);
+double S_min (double, double, float, double, double, double, float, TMap *);
 //-----------------------------------------------------------------------//
 
 //-----------------------------------------------------------------------//
 // Функция выводящия расположение сгустков плазмы - преимущественно для
 // отладки программы
 
-void neutron_star::show_pos_sparks (void) {
+void NeutronStar::show_pos_sparks (void) {
 
     for (int i = 10; i < 30; i++)	{
         cout<<sparks[1][i]<<"\t"<</*i<<") rho: "<<*/sqrt(9*pi*sparks[0][i]*1.e5/(2.*light_velocity*get_P(tau)))<<"\t"/*<<", s: "<<sparks[1][i]*/<<endl;
@@ -46,7 +46,7 @@ void neutron_star::show_pos_sparks (void) {
 // Дополнительно возвращает полуширину пика, через третий аргумент
 // по статье Karastergiou, 2008
 
-double neutron_star::get_angle_btw_l_of_s_sparks (double t, special_star * sun, double * w, parametrs_lum * param) {
+double NeutronStar::get_angle_btw_l_of_s_sparks (double t, SpecialStar * sun, double * w, parametrs_lum * param) {
     int n_begin;
     int n_end;
     int j_tmpl;
@@ -109,7 +109,7 @@ double neutron_star::get_angle_btw_l_of_s_sparks (double t, special_star * sun, 
 // Функция выводящия значения отчётов для среднего профиля пульсара
 // Код по большей части является повторение функции get_angle_btw_l_of_s_sparks
 //----------------------------------------------------------------------//
-void neutron_star::show_pulse_profile (double t, special_star * sun, parametrs_lum * param) {
+void NeutronStar::show_pulse_profile (double t, SpecialStar * sun, parametrs_lum * param) {
     int n_begin;
     int n_end;
     double latitudes [20];
@@ -172,7 +172,7 @@ void neutron_star::show_pulse_profile (double t, special_star * sun, parametrs_l
 // так же учитывается галактические координаты пульсара
 // По статье Fan, 2001
 //------------------------------------------------------------------------//
-double neutron_star::is_pulsar_visible (double t, special_star * sun, T_map * T_copy, parametrs_lum * param) {
+double NeutronStar::is_pulsar_visible (double t, SpecialStar * sun, TMap * T_copy, parametrs_lum * param) {
     double res, w;
     float  l, b, sm, DM;
     double dist_to_sun, lum_0, lum_min = 0.3; // Пока оценочное значение

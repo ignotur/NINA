@@ -47,7 +47,7 @@ void   set_position(double, double, double);
 void   set_velocity(double, double, double);
 //--------------------------------------//
 
-star_OB::star_OB (double T, special_star * sun) {
+OBStar::OBStar (double T, SpecialStar * sun) {
     double chance_1, chance_2, theta_corr, theta, corr; //theta - угол из цетра Галактики
     int    arm;
     bool is_position_set = false;
@@ -579,31 +579,31 @@ star_OB::star_OB (double T, special_star * sun) {
 
 
 
-double star_OB::get_position_x () {
+double OBStar::get_position_x () {
     return x;
 }
 
-double star_OB::get_position_y () {
+double OBStar::get_position_y () {
     return y;
 }
 
-double star_OB::get_position_z () {
+double OBStar::get_position_z () {
     return z;
 }
 
-double star_OB::get_velocity_x () {
+double OBStar::get_velocity_x () {
     return v_x;
 }
 
-double star_OB::get_velocity_y () {
+double OBStar::get_velocity_y () {
     return v_y;
 }
 
-double star_OB::get_velocity_z () {
+double OBStar::get_velocity_z () {
     return v_z;
 }
 
-void star_OB::move_to(double T) {
+void OBStar::move_to(double T) {
     double result [6];
 
     result [0] = x;
@@ -626,21 +626,21 @@ void star_OB::move_to(double T) {
 
 }
 
-double star_OB::get_Flux () {
+double OBStar::get_Flux () {
     return F;
 }
 
-double star_OB::get_mass () {
+double OBStar::get_mass () {
     return M;
 }
 
-void star_OB::set_position (double x_, double y_, double z_) {
+void OBStar::set_position (double x_, double y_, double z_) {
     x = x_;
     y = y_;
     z = z_;
 }
 
-void star_OB::set_velocity (double vx_, double vy_, double vz_) {
+void OBStar::set_velocity (double vx_, double vy_, double vz_) {
     v_x = vx_;
     v_y = vy_;
     v_z = vz_;
@@ -649,58 +649,58 @@ void star_OB::set_velocity (double vx_, double vy_, double vz_) {
 // Функция, подсчитывающия время жизни звезды на
 // главной последовательности. По статье Hurley, 2000
 
-double star_OB::get_time_on_MS () {
+double OBStar::get_time_on_MS () {
     return t_ms*1e6;
 }
 
-double star_OB::get_R (double T) {
+double OBStar::get_R (double T) {
     return R;
 }
 
-double star_OB::get_Z () {
+double OBStar::get_Z () {
     return Z;
 }
 
-double star_OB::get_L () {
+double OBStar::get_L () {
     return L;
 }
 
-double star_OB::get_t_bgb() {
+double OBStar::get_t_bgb() {
     return (t_bgb-t_ms)*1e6;
 }
 
-double star_OB::get_t_inf() {
+double OBStar::get_t_inf() {
     return t_inf*1e6;
 }
 
-double star_OB::get_t_HeI() {
+double OBStar::get_t_HeI() {
     return (t_HeI - t_ms)*1e6;
 }
 
-double star_OB::get_M_c_SN() {
+double OBStar::get_M_c_SN() {
     return M_c_SN;
 }
 
-double star_OB::get_t_He() {
+double OBStar::get_t_He() {
     return t_He*1e6;
 }
 
-double star_OB::get_c_HeI() {
+double OBStar::get_c_HeI() {
     return M_c_HeI;
 }
 
-double star_OB::get_c_HeF() {
+double OBStar::get_c_HeF() {
     return M_c_HeF;
 }
 
-double star_OB::get_c_BGB() {
+double OBStar::get_c_BGB() {
     return M_c_BGB;
 }
 
-double star_OB::get_c_BAGB() {
+double OBStar::get_c_BAGB() {
     return M_c_BAGB;
 }
 
-double star_OB::get_c_DU() {
+double OBStar::get_c_DU() {
     return M_c_DU;
 }

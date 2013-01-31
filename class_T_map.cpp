@@ -7,7 +7,7 @@ struct decl {
     double quant;
 };
 
-T_map::T_map (void) {
+TMap::TMap (void) {
 
     size = 1038961;
     ifstream in_Tb  ("TbGal_tot_CasA1pix.bin", ios::binary);
@@ -21,6 +21,6 @@ T_map::T_map (void) {
     }
 }
 
-double T_map::get_Tb (int N) {
+double TMap::get_Tb (int N) {
     return Tb[N];
 }

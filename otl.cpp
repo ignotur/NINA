@@ -36,7 +36,7 @@ int main () {
     cout<<"//----------------------------------------------------------//"<<endl;
     cout<<"// Инициализация расчётов.                                  //"<<endl;
     srand(time(0));
-    T_map T_copy;
+    TMap T_copy;
 
     cout<<"// Инициализация расчётов закончена.                        //"<<endl;
     cout<<"//----------------------------------------------------------//"<<endl;
@@ -48,7 +48,7 @@ int main () {
     ofstream otl_pos ("otl_pos.txt");
 
     double tmpl, initial;
-    special_star sun;
+    SpecialStar sun;
     double now = 0, shift;
     double P, dot_P, B, x, y, z;
     double dist_to_sun, lumin;
@@ -60,8 +60,8 @@ int main () {
     timeinfo = localtime(&rawtime);
 
 
-    star_OB      * ancester;
-    neutron_star * descendant;
+    OBStar      * ancester;
+    NeutronStar * descendant;
 
     double x_i, y_i, z_i;
     double v_x, v_y, v_z, incl;
@@ -79,11 +79,11 @@ int main () {
 
     //	delete ancester;	}
 
-    ancester = new star_OB (T, &sun);
+    ancester = new OBStar (T, &sun);
 
     //cout<<"Look here "<<param_lum.is_beam_on(10.)<<endl;
 
-    descendant = new neutron_star(T, ancester, &param_B);
+    descendant = new NeutronStar(T, ancester, &param_B);
     //	ancester->move_to(T);
 
     for (int i = 30; i < 80; i++)	{

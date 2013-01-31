@@ -44,8 +44,8 @@ int main (int argc, char *argv[]) {
         in_b.open ("B_init.txt");
     }
 
-    P_distr p_distr(&in_p);
-    B_distr b_distr(&in_b);
+    PDistr p_distr(&in_p);
+    BDistr b_distr(&in_b);
 
     p_distr.print_param        (&cout);
     b_distr.print_param        (&cout);
@@ -56,7 +56,7 @@ int main (int argc, char *argv[]) {
     cout<<"//----------------------------------------------------------//"<<endl;
     cout<<"// Инициализация расчётов.                                  //"<<endl;
     srand(time(0));
-    T_map T_copy;
+    TMap T_copy;
 
     cout<<"// Инициализация расчётов закончена.                        //"<<endl;
     cout<<"//----------------------------------------------------------//"<<endl;
@@ -72,8 +72,8 @@ int main (int argc, char *argv[]) {
     param_lum.print_short  (&out_short);
 
 
-    special_star sun;
-    special_star sun_nowaday;
+    SpecialStar sun;
+    SpecialStar sun_nowaday;
     double now = 0, shift;
     double P[number_stars], dot_P[number_stars], x[number_stars], y[number_stars], z[number_stars], B[number_stars];
     double dist_to_sun[number_stars], lumin;
@@ -104,8 +104,8 @@ int main (int argc, char *argv[]) {
 
     int rank[7];
 
-    star_OB      * ancester;
-    neutron_star * descendant[number_stars];
+    OBStar      * ancester;
+    NeutronStar * descendant[number_stars];
 
 #ifdef _OPENMP
     omp_set_num_threads(3);
@@ -122,7 +122,7 @@ int main (int argc, char *argv[]) {
 
             for (int j = 0; j < number_stars; j++)	{
                 rand_shift = rand()%500;
-                ancester = new star_OB (T + rand_shift, &sun);
+                ancester = new OBStar (T + rand_shift, &sun);
 
                 if (!(i%10000) && j==0) {
                     cout<<T<<"\t"<<i<<endl;
@@ -135,7 +135,7 @@ int main (int argc, char *argv[]) {
                 if (shift + T + rand_shift < 0)		{
                     active[j]=true;
                     ancester->move_to (shift); // На сколько нужно сдвинуть, действительно мы не знаем времени рождения звезды
-                    descendant[j] = new neutron_star (T + shift + rand_shift, ancester, &param_B, &p_distr, &b_distr);
+                    descendant[j] = new NeutronStar (T + shift + rand_shift, ancester, &param_B, &p_distr, &b_distr);
 
                     if (descendant[j]->is_pulsar_alive(now) && descendant[j]->is_this_ns())	{
                         descendant[j]->move_to(now);
