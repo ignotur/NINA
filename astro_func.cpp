@@ -18,7 +18,7 @@ struct decl {
     double quant;
 };
 
-double T_sky (double l, double b, T_map * T_copy) {
+double T_sky (double l, double b, TMap * T_copy) {
 
     double alphaf, deltaf, res;
     double alpha_int, alpha_frac, delta_int, delta_frac;
@@ -94,7 +94,7 @@ double T_sky (double l, double b, T_map * T_copy) {
     return res;
 }
 
-double S_min (double l, double b, float sm, double dist, double w, double P, float DM, T_map * T_copy) {
+double S_min (double l, double b, float sm, double dist, double w, double P, float DM, TMap * T_copy) {
     double res, DM_0_parkes, DM_0_swinburne, delta_beam, tau_scatt;
     double W_l_parkes, W_l_swinburne, S_min_Parkes, S_min_Swinburne;
 

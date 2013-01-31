@@ -29,11 +29,11 @@ double const lsec    = 3.1688955e-8;            // 1 сек в годах, дл�
 // Используется для ускорения расчётов.
 //--------------------------------------------------//
 
-class T_map {
+class TMap {
 public:
     int size;
     double Tb [1038961];
-    T_map ();
+    TMap ();
     double get_Tb (int);
 private:
 
@@ -45,9 +45,9 @@ private:
 //--------------------------------------------//
 
 
-class P_distr {
+class PDistr {
 public:
-    P_distr (ifstream *);
+    PDistr (ifstream *);
     void print_param (ostream * );
     double a();
     double b();
@@ -56,9 +56,9 @@ private:
     double bin;
 };
 
-class B_distr {
+class BDistr {
 public:
-    B_distr (ifstream *);
+    BDistr (ifstream *);
     void print_param (ostream *);
     double a();
     double b();
@@ -71,12 +71,12 @@ private:
 // Класс для расчёта положения солнца
 //----------------------------------------------//
 
-class special_star {
+class SpecialStar {
 public:
     double x, y, z, v_x, v_y, v_z, t; // эпоха для которой посчитано положение
     int use;
     ofstream out_err;
-    special_star();
+    SpecialStar();
     //~special_star();
     double get_position_x();
     double get_position_y();
@@ -96,12 +96,12 @@ private:
 // Z - металличность
 // ksi - log10(Z/0.02) - отношение металличности к солнечной
 // L - момент импульса находяшийся в звезде в г см^2 / сек^2
-class star_OB {
+class OBStar {
 public:
     double M, R, x, y, z, v_x, v_y, v_z, F, P, Z, ksi, L, t_bgb, t_ms, t_inf, t_HeI, t_He, M_c_SN;
     double M_c_DU, M_c_BGB, t_BGB, M_c_HeF, M_c_HeI, M_c_BAGB;
     double tau; // Время рождения
-    star_OB  (double, special_star*);
+    OBStar  (double, SpecialStar*);
     //~star_OB ();
     double get_position_x();
     double get_position_y();
@@ -141,7 +141,7 @@ double a, e;
 private:
 }
 */
-class neutron_star {
+class NeutronStar {
 public:
     parametrs_B * paramet_B;
     double M, R, x, y, z, v_x, v_y, v_z, B, P, L;
@@ -149,7 +149,7 @@ public:
     bool visible, massive;
     double sparks [2][30];
     double i_incl, x_axis, y_axis, z_axis;
-    neutron_star  (double, star_OB *, parametrs_B *, P_distr*, B_distr*);
+    NeutronStar  (double, OBStar *, parametrs_B *, PDistr*, BDistr*);
     //~neutron_star ();
     double get_M          ();
     double get_R          ();
@@ -162,7 +162,7 @@ public:
     double get_velocity_x ();
     double get_velocity_y ();
     double get_velocity_z ();
-    double get_dist_to_sun(double, special_star *);
+    double get_dist_to_sun(double, SpecialStar *);
     void   move_to  (double);
     double get_B    (double/*, parametrs_B **/);
     double get_incl (double);
@@ -171,12 +171,12 @@ public:
     //double get_nu_1 (double);	// Первая производная циклической частоты вращения пульсара sec^-2
     //double get_nu_2 (double);	// Вторая производная циклической частоты вращения пульсара sec^-3
     void show_pos_sparks (void);
-    void show_pulse_profile (double t, special_star *, parametrs_lum *);
+    void show_pulse_profile (double t, SpecialStar *, parametrs_lum *);
     bool is_pulsar_alive   (double);
     bool is_this_ns();		// Проверка, какая масса у родившейся нейтронной звезды
-    double is_pulsar_visible           (double, special_star * , T_map *, parametrs_lum *);
-    double get_angle_btw_l_of_s_sparks (double, special_star *, double *, parametrs_lum *);
-    double get_DM (double, special_star *, float *, float *, float *);
+    double is_pulsar_visible           (double, SpecialStar * , TMap *, parametrs_lum *);
+    double get_angle_btw_l_of_s_sparks (double, SpecialStar *, double *, parametrs_lum *);
+    double get_DM (double, SpecialStar *, float *, float *, float *);
     //double T_sky  (double, double);
     //double S_min  (double, double, float, double, double, double, float);
 private:

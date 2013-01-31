@@ -31,7 +31,7 @@ void   Runge_Kutta (int, double, double *, void (*f)(int, double *));
 void   diff_equi   (int, double *);
 //------------------------------------------------------------------//
 
-neutron_star::neutron_star (double T, star_OB  * proteg, parametrs_B * param, P_distr *p_init, B_distr *b_init) {
+NeutronStar::NeutronStar (double T, OBStar  * proteg, parametrs_B * param, PDistr *p_init, BDistr *b_init) {
     double v, prover, sigma, phi, psi, f, chance_1, chance_2, chance_3;
     bool is_position_set = false;
 
@@ -291,11 +291,11 @@ neutron_star::neutron_star (double T, star_OB  * proteg, parametrs_B * param, P_
     //-----------------------------------------------------------------
 }
 
-double neutron_star::get_M() {
+double NeutronStar::get_M() {
     return M;
 }
 
-double neutron_star::get_R() {
+double NeutronStar::get_R() {
     return R/1e5;
 }
 /*
@@ -390,7 +390,7 @@ return res;
 //-----------------------------------------------------------------------
 // Не погас ли ещё пульсар? Алгоритм проверки как у Faucher
 
-bool neutron_star::is_pulsar_alive(double t) {
+bool NeutronStar::is_pulsar_alive(double t) {
 
     //cout<<get_incl(t)/pi*180<<"\t"<<abs(get_incl(t)/pi*180-90)<<endl;
 
@@ -430,19 +430,19 @@ return L;
 // функции, такие как положение объекта, скорость, и метод
 // для динамической эволюции положения объекта в Галактике
 
-double neutron_star::get_position_x() {
+double NeutronStar::get_position_x() {
     return x;
 }
 
-double neutron_star::get_position_y() {
+double NeutronStar::get_position_y() {
     return y;
 }
 
-double neutron_star::get_position_z() {
+double NeutronStar::get_position_z() {
     return z;
 }
 
-void neutron_star::move_to(double T) {
+void NeutronStar::move_to(double T) {
     double result [6];
 
     T = T - tau;
@@ -467,15 +467,15 @@ void neutron_star::move_to(double T) {
 
 }
 
-double neutron_star::get_velocity_x (void) {
+double NeutronStar::get_velocity_x (void) {
     return v_x/lcm*lsec/1e5;
 }
 
-double neutron_star::get_velocity_y (void) {
+double NeutronStar::get_velocity_y (void) {
     return v_y/lcm*lsec/1e5;
 }
 
-double neutron_star::get_velocity_z (void) {
+double NeutronStar::get_velocity_z (void) {
     return v_z/lcm*lsec/1e5;
 }
 //------------------------------------------------------------------
@@ -607,11 +607,11 @@ dist_to_sun = sqrt(pow(sun->get_position_x() - x, 2) + pow(sun->get_position_y()
 return res;
 }
 */
-bool neutron_star::is_this_ns (void) {
+bool NeutronStar::is_this_ns (void) {
     return massive;
 }
 
-double neutron_star::get_dist_to_sun(double t, special_star * sun)	{
+double NeutronStar::get_dist_to_sun(double t, SpecialStar * sun)	{
     double res;
     double x_sun, y_sun, z_sun;
 
@@ -636,7 +636,7 @@ extern "C" {
 }
 
 
-double neutron_star::get_DM (double t, special_star * sun, float *l, float *b, float *sm) {
+double NeutronStar::get_DM (double t, SpecialStar * sun, float *l, float *b, float *sm) {
     double x_sun, y_sun, z_sun;
     float dist, dmpsr;
     //float l, b;

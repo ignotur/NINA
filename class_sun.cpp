@@ -27,7 +27,7 @@ double dphi_dy (double, double, double);
 
 //---------------------------------------------------------------//
 // Скорость солнца в галактике взята из книги Аллен
-special_star::special_star() {
+SpecialStar::SpecialStar() {
     double r, v;
     x = 0;
     y = 8.5;
@@ -55,27 +55,27 @@ special_star::special_star() {
 }
 
 
-double special_star::get_position_x () {
+double SpecialStar::get_position_x () {
     return x;
 }
 
-double special_star::get_position_y () {
+double SpecialStar::get_position_y () {
     return y;
 }
 
-double special_star::get_position_z () {
+double SpecialStar::get_position_z () {
     return z;
 }
 
-double special_star::get_velocity_x () {
+double SpecialStar::get_velocity_x () {
     return v_x/lcm*lsec/1e5;
 }
 
-double special_star::get_velocity_y () {
+double SpecialStar::get_velocity_y () {
     return v_y/lcm*lsec/1e5;
 }
 
-double special_star::get_velocity_z () {
+double SpecialStar::get_velocity_z () {
     return v_z/lcm*lsec/1e5;
 }
 
@@ -87,7 +87,7 @@ double special_star::get_velocity_z () {
 // Метод составляет диффур движения с начальными параметрами
 // и вызывает интегратор.
 //---------------------------------------------------------//
-void special_star::move_to(double T) {
+void SpecialStar::move_to(double T) {
     double result [6];
     double r, v;
 
@@ -158,7 +158,7 @@ void special_star::move_to(double T) {
 // в галактике. Нужна для определения положения
 // спиральных рукавов в любой момент времени
 //-----------------------------------------------//
-double special_star::get_theta() {
+double SpecialStar::get_theta() {
     double alpha;
     alpha = atan2(x, y);
 
