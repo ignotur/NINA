@@ -31,6 +31,9 @@ int main (int argc, char * argv[]) {
 
     ifstream in_p, in_b;
 
+    PDistr p_distr;
+    BDistr b_distr;	
+
     if (argc>2)				{
         in_p.open (argv[1]);
         in_b.open (argv[2]);
@@ -38,11 +41,17 @@ int main (int argc, char * argv[]) {
         cout<<"You did not mention files for P and B distributions, so standards files are used"<<endl;
         in_p.open ("P_init.txt");
         in_b.open ("B_init.txt");
+		
+	if ((!in_p) || (!in_b))						{
+	    cout<<"Files with initial P&B are absent."<<endl;
+	} else 							{		
+	    p_distr.Set(&in_p);
+	    b_distr.Set(&in_b);
+	}		
+
     }
 
 
-    PDistr p_distr(&in_p);
-    BDistr b_distr(&in_b);
 
     p_distr.print_param        (&cout);
     b_distr.print_param        (&cout);

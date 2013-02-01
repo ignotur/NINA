@@ -38,8 +38,8 @@ fi
 echo "main:         ./ne2001_f/libNE2001.a 	\$(list_$1) \$(list_$2) \$(list_$3)">> makefile
 echo "		cp $2_lum_model.h lum_model.h"                                      >> makefile
 echo "		cp $3_field_decay_model.h field_decay_model.h"                      >> makefile
-echo "		cp input_$2$3.txt input.txt"                                        >> makefile
+#echo "		cp input_$2$3.txt input.txt"                                        >> makefile
 echo "		g++  -O3 \$(list_$1) \$(list_$2) \$(list_$3) -o population.out  -L./ne2001_f/ -lNE2001 -lf2c -lm \$(keys)" >> makefile	
-echo "		g++ \$(list_param) \$(list_$2) \$(list_$3) -o param.out -L./ne2001_f/ -lNE2001 -lf2c -lm" >> makefile
+#echo "		g++ \$(list_param) \$(list_$2) \$(list_$3) -o param.out -L./ne2001_f/ -lNE2001 -lf2c -lm" >> makefile
 
-cat backup_for_make >> makefile
+#cat backup_for_make >> makefile

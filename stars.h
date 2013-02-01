@@ -47,7 +47,9 @@ private:
 
 class PDistr {
 public:
-    PDistr (ifstream *);
+    PDistr ();
+    void Set (ifstream *);
+    void Set (double, double);
     void print_param (ostream * );
     double a();
     double b();
@@ -58,7 +60,9 @@ private:
 
 class BDistr {
 public:
-    BDistr (ifstream *);
+    BDistr ();
+    void Set (ifstream *);
+    void Set (double, double);
     void print_param (ostream *);
     double a();
     double b();

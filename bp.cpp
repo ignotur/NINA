@@ -4,9 +4,19 @@
 
 using namespace std;
 
-PDistr::PDistr (ifstream * in) {
+PDistr::PDistr ()	       {
+    ain = 0.3;
+    bin = 0.15;
+}
+
+void PDistr::Set (ifstream * in) {
     *in>>ain;
     *in>>bin;
+}
+
+void PDistr::Set (double avalue, double bvalue)	{
+    ain=avalue;
+    bin=bvalue;
 }
 
 void PDistr::print_param (ostream * out) {
@@ -24,9 +34,19 @@ double PDistr::b () {
     return bin;
 }
 
-BDistr::BDistr (ifstream * in) {
+BDistr::BDistr ()	       {
+    ain = 12.65;
+    bin = 0.55;
+}
+
+void BDistr::Set (ifstream * in) {
     *in>>ain;
     *in>>bin;
+}
+
+void BDistr::Set (double avalue, double bvalue)	{
+    ain=avalue;
+    bin=bvalue;
 }
 
 void BDistr::print_param (ostream * out) {
