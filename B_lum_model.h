@@ -8,19 +8,19 @@ using namespace std;
 
 class parametrs_lum {
 public:
-double ds, dlum;
+    double ds, dlum;
 
-parametrs_lum (ifstream *);
+    parametrs_lum (ifstream *);
 
-void print_description (ostream *);
-void print_parametrs   (ostream *);
-void print_short       (ostream *);
+    void print_description (ostream *);
+    void print_parametrs   (ostream *);
+    void print_short       (ostream *);
 
-double get_ds   ();
-double get_dlum (); 
+    double get_ds   ();
+    double get_dlum ();
 
-bool is_beam_on(double);
- 
+    bool is_beam_on(double);
+
 private:
 
 };

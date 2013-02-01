@@ -9,12 +9,12 @@ using namespace std;
 class parametrs_B {
 public:
 
-parametrs_B (ifstream *);
+    parametrs_B (ifstream *);
 
-void print_description (ostream *);
-void print_parametrs   (ostream *);
-void print_short       (ostream *);
- 
+    void print_description (ostream *);
+    void print_parametrs   (ostream *);
+    void print_short       (ostream *);
+
 private:
 
 };

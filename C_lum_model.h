@@ -9,14 +9,14 @@ using namespace std;
 class parametrs_lum {
 public:
 
-parametrs_lum (ifstream *);
+    parametrs_lum (ifstream *);
 
-bool is_beam_on(double);
+    bool is_beam_on(double);
 
-void print_description (ostream *);
-void print_parametrs   (ostream *);
-void print_short       (ostream *);
- 
+    void print_description (ostream *);
+    void print_parametrs   (ostream *);
+    void print_short       (ostream *);
+
 private:
 
 };
