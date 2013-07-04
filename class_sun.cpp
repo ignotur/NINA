@@ -47,11 +47,11 @@ SpecialStar::SpecialStar() {
     t=0;
     use = 0;
 
-    if (std::ifstream("sun_movement.txt") != NULL) {
-        out_err.open("sun_movement_add_sun.txt");
-    } else {
-        out_err.open("sun_movement.txt");
-    }
+//    if (std::ifstream("sun_movement.txt") != NULL) {
+//        out_err.open("sun_movement_add_sun.txt");
+//    } else {
+//        out_err.open("sun_movement.txt");
+//    }
 }
 
 
@@ -91,7 +91,7 @@ void SpecialStar::move_to(double T) {
     double result [6];
     double r, v;
 
-    out_err<<T-t<<endl;
+//    out_err<<T-t<<endl;
 
     if (use>5000)	{
         //cout<<"reset"<<endl;
