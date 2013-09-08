@@ -30,11 +30,11 @@ using namespace std;
 
 //--------------------------------------//
 // Декларация функций
-double rho (double);
-double rho_P90 (double);
-double rho_B00 (double);
-double rho_SN_remnant(double);
-double rho_F06 (double);
+//double rho (double);
+//double rho_P90 (double);
+//double rho_B00 (double);
+//double rho_SN_remnant(double);
+//double rho_F06 (double);
 double rho_m (double);
 double norm_distr (void);
 double dphi_dx (double, double, double);
@@ -47,7 +47,7 @@ void   set_position(double, double, double);
 void   set_velocity(double, double, double);
 //--------------------------------------//
 
-OBStar::OBStar (double T, SpecialStar * sun) {
+OBStar::OBStar (double T, SpecialStar * sun, RDF * rad_distr, bool spir_str) {
     double chance_1, chance_2, theta_corr, theta, corr; //theta - угол из цетра Галактики
     int    arm;
     bool is_position_set = false;
@@ -92,23 +92,21 @@ OBStar::OBStar (double T, SpecialStar * sun) {
         x+=2.52;
         y = rand () / rand_high_board;
 
-        if (rho(x) >= y) {            ///rho_P90
+        if (rad_distr->rho(x) >= y) {           
             is_position_set = true;
         }
 
     } while (!(is_position_set));
 
-    //x-=2.5;
-    //x*=3;
     r = x;
 
-    theta = k[arm] * log(r/r_0[arm]) + theta_0[arm];
-    theta_corr =  rand() / rand_high_board;
-    theta_corr *= 2 * pi;
-    sun->move_to(T);
-    theta += theta_corr * pow(e, -3.5*r) + sun->get_theta();
-    //theta=theta_corr;
-    //---------------------------------------------------------------
+    if (spir_str) {
+
+    	theta = k[arm] * log(r/r_0[arm]) + theta_0[arm];
+    	theta_corr =  rand() / rand_high_board;
+    	theta_corr *= 2 * pi;
+    	sun->move_to(T);
+    	theta += theta_corr * pow(e, -3.5*r) + sun->get_theta();
 
     // Поворот спирального узора из-за вращения Галактики
     // используется статья Ramachandran, 1994
@@ -116,15 +114,14 @@ OBStar::OBStar (double T, SpecialStar * sun) {
     // с постоянной угловой скоростью равной 23 км/сек кпк
     // из работы Л.С. Марочник А.А. Сучков
 
-    corr = 2.55673e-7/r*T;
-
-    theta_corr = 2.301055e-7* (1./r - 1./14)*T; // это 225 км/с переведённые в кпк/год
-
-    //********************************************************This is new
     theta_corr = 2.35219e-8*T;
-
     theta += theta_corr;
-
+    }
+    else	{
+     	theta_corr =  rand() / rand_high_board;
+    	theta_corr *= 2 * pi;
+   	theta = theta_corr;
+    }
     //---------------------------------------------------------------
 
     x = r * cos(theta);
