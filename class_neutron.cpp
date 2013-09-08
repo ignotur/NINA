@@ -9,17 +9,19 @@
 using namespace std;
 
 //-------------------------------------------------------------------------------------//
+// neutron_star --- a class which create neutron star on the place where massive star
+// exploded. This class also allows to trace its following evolution. The constructor
+// should get an exemplar of the class massive star. The position of the star, 
+// magnetic flux and mass of the core are used.
 // neutron_star --- класс, который на месте массивной звезды создаёт нейтронную звезду,
 // а также позволяет прослеживать её дальнейшую эволюцию. Конструктору класса передаётся
 // звезда предшественник этой нейтронной звезды. Извлекаеться положение в пространстве
 // Галактике, магнитный поток, масса ядра прародителя
-// Начальная скорость вращения взята из статьи Бисноватого-Когана, 2008
 // Масса по статье Hurley, 2000
 //
-//  Автор: Igoshev Andrey
-//  Научный руководитель: Холтыгин А.Ф.
-//  e-mail: igoshev-andrei@rambler.ru
-//  Написание начато: 13.09.2010
+//  Author: Igoshev Andrei
+//  Adviser: Alexander F. Kholtygin
+//  e-mail: ignotur@gmail.com
 //-------------------------------------------------------------------------------------//
 
 //------------------------------------------------------------------//
@@ -37,22 +39,22 @@ NeutronStar::NeutronStar (double T, OBStar  * proteg, MFD * mfd, LM * lm, GD *p_
 
     M = 1.17 + 0.09 * proteg->get_M_c_SN();
 
-    // Определение радиуса нейтронной звезды -------------------
-    // по статье J.M. Latimer, 2000
+    // Determination of NS radius -------------------
+    // according to Latimer et al. (2000)
     R = 3.04*G_cgs*M*M_sol/pow(light_velocity, 2);
     R = R / sqrt(1-2*G_cgs*M*M_sol/(R*pow(light_velocity,2)));
     //-----------------------------------------------------------
 
+    // Generate initial period of pulsar
     P = p_init->generate_next();
 
-
-    // Координаты звезды наследуются от её предшественника
+    // The initial position of the NS is the same as massive star had
     x = proteg->get_position_x();
     y = proteg->get_position_y();
     z = proteg->get_position_z();
 
     //-------------------------------------------------------------
-    // Скорость звезды меняеться на начальный толчок (birthkick)
+    // The birthkick is introducting
     // распределённый случайным образом с плотностью вероятности
     // распределённой по нормальному закону
     double is_velocity_set;
@@ -102,9 +104,6 @@ NeutronStar::NeutronStar (double T, OBStar  * proteg, MFD * mfd, LM * lm, GD *p_
         chance_3  = rand()/rand_high_board;
     } while (cos(chance_2) <= chance_3);
 
-    //cout<<"phi = "<<chance_1*180./pi<<endl;
-    //cout<<"psy = "<<chance_2*180./pi<<endl;
-
     x_axis    = cos(chance_2) * cos(chance_1);
     y_axis    = cos(chance_2) * sin(chance_1);
     z_axis    = sin(chance_2);
@@ -119,20 +118,29 @@ NeutronStar::NeutronStar (double T, OBStar  * proteg, MFD * mfd, LM * lm, GD *p_
     i_incl    = chance_1;
 
     i_incl = 10./180.*pi;
-    //cout<<"intcl "<<i_incl*180/pi<<endl;
 
     //-----------------------------------------------------------------
-    // Устанавливаем текущее время временем рождения нейтронной звезды
+    // Set the birth time of NS.
     tau = T;
     //-----------------------------------------------------------------
 
     //-----------------------------------------------------------------
-    // Не слишком ли массивна эта звезда, чтобы быть нейтронной?
+    // Is it NS? If not then we set mass as BH should have according to
+    // work by Fryer, Belczynski, Wiktorowicz at al. (2012) delay collapse
+
+double mass_prog, Z_prog;
+
     if (proteg->get_c_BAGB()<9.5084) {
         massive = true;
     } else {
         massive = false;
-    }
+	mass_prog = proteg -> get_mass ();
+	Z_prog    = proteg -> get_Z    ();		
+	    if (mass_prog > 11 && mass_prog < 30)
+		M = 1.1 + 0.2 * exp ((mass_prog - 11.0)/4.) - (2. + Z_prog) * exp(0.4*(mass_prog - 26.0));
+	    else if ( mass_prog > 30)
+		M = min (33.35 + (4.75 + 1.25*Z_prog)*(mass_prog - 34.), mass_prog - sqrt(Z_prog)*(1.3*mass_prog - 18.35));
+	    }
 
     //-----------------------------------------------------------------
     //-----------------------------------------------------------------
@@ -186,9 +194,6 @@ NeutronStar::NeutronStar (double T, OBStar  * proteg, MFD * mfd, LM * lm, GD *p_
    base_mfd = mfd;
    base_lm  = lm; 
 
-    //parametrs paramet_B (param);
-    //paramet_B = param;
-    //-----------------------------------------------------------------
 }
 
 double NeutronStar::get_M() {

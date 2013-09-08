@@ -16,6 +16,9 @@ void print_head (ostream * out)	{
 
 void print_help ()	{
 cout<<"The population synthesis code allows to use following flags    "<<endl;
+cout<<"-b file -- black hole calculations. This flag makes program    "<<endl;
+cout<<"           calculate distributions of black holes by masses and"<<endl;
+cout<<"           write masses into file                              "<<endl;
 cout<<"-e -- extended output: one output file is divided into 3 files."<<endl;
 cout<<"      One with P-dotP, one with positions and velocities and   "<<endl;
 cout<<"      one with luminosities at 1400 MHz.                       "<<endl;
@@ -45,15 +48,15 @@ void print_param (ostream * out, char star_distr, bool arms, char init_distr_p, 
       char init_distr_f, vector<double> param_f, char lum_model, vector <double> param_lum, char decay,
 		   vector<double> param_decay, double time_of_run, double birthrate_val)  {
 
-*out<<"---------------------------------------------------------------"<<endl;
-*out<<"Parameters of run."<<endl;
-*out<<"Interval of simulation "<<time_of_run<<" years."<<endl;
-*out<<"Birthrate of massive stars "<<birthrate_val<<" per thousand of years."<<endl;
-*out<<"Model of initial radial distribution of stars "<<star_distr<<endl;
-*out<<"Initial distribution of pulsars periods "<<init_distr_p<<endl;
-*out<<"Initial distribution of pulsars's magnetic fields "<<init_distr_f<<endl;
-*out<<"Model of luminocity "<<lum_model<<endl;
-*out<<"Model of magnetic field decay "<<decay<<endl;
+*out<<"#---------------------------------------------------------------"<<endl;
+*out<<"#Parameters of run."<<endl;
+*out<<"#Interval of simulation "<<time_of_run<<" years."<<endl;
+*out<<"#Birthrate of massive stars "<<birthrate_val<<" per thousand of years."<<endl;
+*out<<"#Model of initial radial distribution of stars "<<star_distr<<endl;
+*out<<"#Initial distribution of pulsars periods "<<init_distr_p<<endl;
+*out<<"#Initial distribution of pulsars's magnetic fields "<<init_distr_f<<endl;
+*out<<"#Model of luminocity "<<lum_model<<endl;
+*out<<"#Model of magnetic field decay "<<decay<<endl;
 }
 
 void print_error_no_RDF(char tmp) {

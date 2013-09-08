@@ -19,9 +19,9 @@ double RDFFaucher::rho (double r) {
 }
 
 void  RDFFaucher::print_description (ostream * out) {
-*out<<"The radial distribution function of stars in the Galaxy is as in"<<endl;
-*out<<"article by Faucher-Giguere, Kaspi (2006)"<<endl;
-*out<<"----------------------------------------------------------------"<<endl;
+*out<<"#The radial distribution function of stars in the Galaxy is as in"<<endl;
+*out<<"#article by Faucher-Giguere, Kaspi (2006)"<<endl;
+*out<<"#----------------------------------------------------------------"<<endl;
 }
 
 //--------------------------------------------//
@@ -38,10 +38,10 @@ double RDFKruit::rho (double r) {
 }
 
 void  RDFKruit::print_description (ostream * out) {
-*out<<"The radial distribution function of stars in the Galaxy is as in"<<endl;
-*out<<"article by van der Kruit (1987). Based on observed distribution"<<endl;
-*out<<"of brightness in J band for Sc galaxies."<<endl;
-*out<<"----------------------------------------------------------------"<<endl;
+*out<<"#The radial distribution function of stars in the Galaxy is as in"<<endl;
+*out<<"#article by van der Kruit (1987). Based on observed distribution"<<endl;
+*out<<"#of brightness in J band for Sc galaxies."<<endl;
+*out<<"#----------------------------------------------------------------"<<endl;
 }
 // B00 модель построенная на основе данных
 // о распределении яркости в далёком инфракрасном диапазоне
@@ -61,10 +61,10 @@ double RDFB0::rho  (double r) {
     return res;
 }
 void  RDFB0::print_description (ostream * out) {
-*out<<"The radial distribution function of stars in the Galaxy is"<<endl;
-*out<<"based on information about distribution of brightness in "<<endl;
-*out<<"in far IR and milimeter radiation."<<endl;
-*out<<"----------------------------------------------------------------"<<endl;
+*out<<"#The radial distribution function of stars in the Galaxy is"<<endl;
+*out<<"#based on information about distribution of brightness in "<<endl;
+*out<<"#in far IR and milimeter radiation."<<endl;
+*out<<"#----------------------------------------------------------------"<<endl;
 }
 // Модель, построенная по распределению поверхностной плотности
 // остатков взрывов сверхновых
@@ -75,9 +75,9 @@ double RDFSN::rho (double r) {
 }
 
 void  RDFSN::print_description (ostream * out) {
-*out<<"The radial distribution function of stars in the Galaxy is"<<endl;
-*out<<"based on distribution of volume density of SN remnants "<<endl;
-*out<<"----------------------------------------------------------------"<<endl;
+*out<<"#The radial distribution function of stars in the Galaxy is"<<endl;
+*out<<"#based on distribution of volume density of SN remnants "<<endl;
+*out<<"#----------------------------------------------------------------"<<endl;
 }
 // Модель построенная на наблюдении пульсаров
 
@@ -88,9 +88,9 @@ double RDFPuls::rho (double r) {
 }
 
 void  RDFPuls::print_description (ostream * out) {
-*out<<"The radial distribution function of stars in the Galaxy is"<<endl;
-*out<<"based on distribution of pulsars (old) "<<endl;
-*out<<"----------------------------------------------------------------"<<endl;
+*out<<"#The radial distribution function of stars in the Galaxy is"<<endl;
+*out<<"#based on distribution of pulsars (old) "<<endl;
+*out<<"#----------------------------------------------------------------"<<endl;
 }
 
 GDGauss::GDGauss (vector <double> * val) {
@@ -120,13 +120,13 @@ else
 }
 
 void GDGauss::print_param (ostream * out){
-*out<<"Parameters of gaussian distribution: center - "<<values->at(1)<<", variance - "<<values->at(3)<<endl;
+*out<<"#Parameters of gaussian distribution: center - "<<values->at(1)<<", variance - "<<values->at(3)<<endl;
 }
 
 void GDMGauss::print_param (ostream * out){
-*out<<"Parameters of multi-gaussian distribution:"<<endl;
+*out<<"#Parameters of multi-gaussian distribution:"<<endl;
 	for (int i=0; i < values->size()/6; i++)
-		 *out<<"center - "<<values->at(4*i+3)<<", variance - "<<values->at(4*i+5)<<endl;
+		 *out<<"#center - "<<values->at(4*i+3)<<", variance - "<<values->at(4*i+5)<<endl;
 }
 
 double GDMGauss::generate_next () {

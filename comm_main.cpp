@@ -14,20 +14,26 @@ int main (int argc, char * argv[]) {
 
 print_head(&cout);
 
-int rez=0, type_of_run=8;
-bool ext_print=false, file_for_print=false, hidden_file = false;
+int rez=0, type_of_run;
+// There are following type of run here:
+// 0 - error, 2 - full start, 4 - generate massive stars,
+// 5 - use already generated massive stars
+bool ext_print =false, file_for_print=false, hidden_file = false;
+bool black_hole=false; 
 bool exclusion = false, param_file=false;
-char * name_file_param, * argum, * file_res, * read_file;
+char * name_file_param, * argum, * file_res, * read_file, * BH_file;
+type_of_run = 0;
 
-    while ( (rez = getopt(argc,argv,"hefo:i:g:p:u")) != -1){
+    while ( (rez = getopt(argc,argv,"hefo:i:g:p:ub:")) != -1){
         switch (rez){
 	case 'h': type_of_run = 0   ; break;
 	case 'e': ext_print   = true; break;
 	case 'f': if (type_of_run == 4 || type_of_run == 5) exclusion=true; else type_of_run = 2; break;
 	case 'o': file_for_print = true; file_res = optarg; break;
-	case 'g': if (type_of_run == 2 || type_of_run == 5) exclusion=true; else type_of_run = 4; argum     = optarg; break;
+	case 'g': if (type_of_run == 2 || type_of_run == 5 || black_hole) exclusion=true; else type_of_run = 4; argum     = optarg; break;
 	case 'i': if (type_of_run == 2 || type_of_run == 4) exclusion=true; else type_of_run = 5; read_file = optarg; break;
 	case 'p': param_file  = true; name_file_param = optarg; break;
+	case 'b': if (type_of_run == 4) exclusion=true; else { black_hole = true; BH_file = optarg; } break;
 	case 'u': hidden_file = true; break;
 	case '?': type_of_run = 0; break;
 	default : type_of_run = 4; break;
@@ -136,16 +142,16 @@ GD  * b_distr;
     p_distr->print_param        (&cout);
     b_distr->print_param        (&cout);
 
-    cout<<"// Параметры популяциии:                                          "<<endl;
-    cout<<"// T_start "<<T<<endl;
-    cout<<"// star formation rate "<<number_stars<<endl;
-    cout<<"//----------------------------------------------------------//"<<endl;
-    cout<<"// Инициализация расчётов.                                  //"<<endl;
+    cout<<"#// Параметры популяциии:                                          "<<endl;
+    cout<<"#// T_start "<<T<<endl;
+    cout<<"#// star formation rate "<<number_stars<<endl;
+    cout<<"#//----------------------------------------------------------//"<<endl;
+    cout<<"#// Инициализация расчётов.                                  //"<<endl;
     srand(time(0));
     TMap T_copy;
 
-    cout<<"// Инициализация расчётов закончена.                        //"<<endl;
-    cout<<"//----------------------------------------------------------//"<<endl;
+    cout<<"#// Инициализация расчётов закончена.                        //"<<endl;
+    cout<<"#//----------------------------------------------------------//"<<endl;
 
 ofstream out_res;
 ofstream out_res_p;
@@ -155,6 +161,7 @@ ofstream out_res_hid;
 ofstream out_res_p_hid;
 ofstream out_res_pos_hid;
 ofstream out_res_lum_hid;
+ofstream out_bh;
 
 char file_res_p[40], file_res_pos[40], file_res_lum[40];
 char file_res_p_hid[40], file_res_pos_hid[40], file_res_lum_hid[40];
@@ -211,7 +218,8 @@ char file_res_hid[40];
     else if (hidden_file)
 	    out_res_hid.open     ("hidden_catalog_result.txt");
 	
-
+    if (black_hole)
+	    out_bh.open (BH_file);
 
 
 
@@ -334,8 +342,13 @@ int shet_i = 0;
             P     = descendant->get_P(now);
 //            out_str << descendant->get_velocity_x()<<endl;
 
-                if (descendant->is_pulsar_alive(now) &&  descendant->is_this_ns() && lum_mod->is_beam_on(P))	{
-                    descendant->move_to(now);
+		// if black_hole == true then write mass of BH in file
+		if (!(descendant->is_this_ns()) && black_hole)
+			out_bh << descendant->get_M()<<endl;
+
+		// else: standard pulsar routine
+                if (descendant->is_pulsar_alive(now) && descendant->is_this_ns() && lum_mod->is_beam_on(P))	{
+			
                     lumin = descendant->is_pulsar_visible(now, &sun_nowaday, &T_copy);
 
                     if (lumin)				{
@@ -430,6 +443,12 @@ else if (type_of_run == 2) {
 				ancester->move_to (shift); // На сколько нужно сдвинуть, действительно мы не знаем времени рождения звезды
 				descendant = new NeutronStar (T + shift + rand_shift, ancester, decay_model, lum_mod, p_distr, b_distr);
 				P     = descendant->get_P(now);
+
+				// if we need BH mass then print them
+				if (!(descendant->is_this_ns()) && black_hole && i<10000)
+				out_bh << descendant->get_M()<<endl;
+
+				// else - standard pulsar routine
 				if (descendant->is_pulsar_alive(now) && descendant->is_this_ns() && lum_mod->is_beam_on(P))	{
 					descendant->move_to(now);
 					lumin = descendant->is_pulsar_visible(now, &sun_nowaday, &T_copy);
@@ -498,9 +517,9 @@ T += 1000;
 
 time (&rawtime);
 timeinfo = localtime(&rawtime);
-out_res<<"// Закончено "<<asctime(timeinfo);
-out_res<<"// За время работы пульсаров замечено  "<<counter<<endl;
-out_res<<"// За время работы магнетаров замечено "<<n_magnet<<endl;
+out_res<<"#// Закончено "<<asctime(timeinfo);
+out_res<<"#// За время работы пульсаров замечено  "<<counter<<endl;
+out_res<<"#// За время работы магнетаров замечено "<<n_magnet<<endl;
 
 
 
