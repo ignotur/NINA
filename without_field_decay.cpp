@@ -1,19 +1,19 @@
 #include <cmath>
 #include "stars.h"
 
+
 using namespace std;
 
-double NeutronStar::get_B (double t) {
+double MFDConst::get_B (double t, double B, double i_incl, double P) {
     return B;
 }
 
-double NeutronStar::get_incl (double t) {
+double MFDConst::get_incl (double t, double B, double i_incl, double P) {
     return i_incl;
 }
 
-double NeutronStar::get_P(double t) {
+double MFDConst::get_P(double t, double B, double i_incl, double P) {
     double res, I;
-    t = t - tau;
     //I = 2./5. * M*M_sol*pow(R,2);
     I=1e45;
 
@@ -23,30 +23,28 @@ double NeutronStar::get_P(double t) {
     return res;
 }
 
-double NeutronStar::get_dot_P (double t) {
+double MFDConst::get_dot_P (double t, double B, double i_incl, double P) {
     double res, I;
     //I = 2./5. * M*M_sol*pow(R,2);
     //res = pow(B/3.2e19, 2)/get_P(t);
     I=1e45;
 
-    res = 8*pi*pi*pow(1e6,6)/3./pow(light_velocity, 3)/I/get_P(t)*B*B;
+    res = 8*pi*pi*pow(1e6,6)/3./pow(light_velocity, 3)/I/get_P(t, B, i_incl, P)*B*B;
     //res = 1*B*B/1.e39/get_P(t);
 
     return res;
 }
 
-parametrs_B::parametrs_B (ifstream * in) {
+MFDConst::MFDConst (vector <double> * values) {
 }
 
-void parametrs_B::print_description (ostream * out) {
-    *out<<"//           Модель без убывания магнитного поля            //"<<endl;
-    *out<<"//----------------------------------------------------------//"<<endl;
+void MFDConst::print_description (ostream * out) {
+    *out<<"#//           Модель без убывания магнитного поля            //"<<endl;
+    *out<<"#//----------------------------------------------------------//"<<endl;
 }
 
-void parametrs_B::print_parametrs   (ostream * out) {
-    *out<<"//   Так как поле не убывает параметров у модели тоже нет   //"<<endl;
-    *out<<"//----------------------------------------------------------//"<<endl;
+void MFDConst::print_parameters   (ostream * out) {
+    *out<<"#//   Так как поле не убывает параметров у модели тоже нет   //"<<endl;
+    *out<<"#//----------------------------------------------------------//"<<endl;
 }
 
-void parametrs_B::print_short       (ostream * out) {
-}

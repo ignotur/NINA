@@ -15,19 +15,19 @@ double S_min (double, double, float, double, double, double, float, TMap *);
 double norm_distr();
 //-----------------------------------------------------------------------//
 
-double NeutronStar::is_pulsar_visible (double t, SpecialStar * sun, TMap * T_copy, parametrs_lum * param) {
-    float l, b, sm, DM;
+double LMFlat::is_pulsar_visible (double t, SpecialStar * sun, TMap * T_copy, double x, double y, double z, double i_incl, double P, double dot_P, float DM) {
+    float l, b, sm;
     double L, eps_P = -1.5, eps_dot_P = 0.5, L_corr=0.8, L_0 = 0.18e-3;
     double dist_to_sun, lum_min, w50;
     double first[3], second[2];
 
-    sun->move_to(t);
+//    sun->move_to(t);
     dist_to_sun = sqrt(pow(sun->get_position_x() - x, 2) + pow(sun->get_position_y() - y, 2) + pow(sun->get_position_z() - z, 2));
     //sun->move_to(-t);
 
     //                w50 = 0.05*get_P(t);
 
-    w50 = 6.81e-3*sqrt(get_P(t))/sin(i_incl);
+    w50 = 6.81e-3*sqrt(P)/sin(i_incl);
 
     //		DM = get_DM (t, sun, &l, &b, &sm);
     //cout<<"Same pulsar"<<endl;
@@ -52,14 +52,14 @@ double NeutronStar::is_pulsar_visible (double t, SpecialStar * sun, TMap * T_cop
         l=360.+l;
     }
 
-    L=log10(L_0*pow(get_P(t), eps_P)*pow(get_dot_P(t)/1e-15, eps_dot_P))+L_corr*norm_distr()+0.5;
+    L=log10(L_0*pow(P, eps_P)*pow(dot_P/1e-15, eps_dot_P))+L_corr*norm_distr()+0.5;
     L = pow(10., L)/pow(dist_to_sun, 2.);
 
 
     if (dist_to_sun < 20 && abs(b) < 15 && (l<=50 || l>=230) && L>=5.e-6)  	{
         //	DM=15*dist_to_sun;
-        DM = get_DM (t, sun, &l, &b, &sm);
-        lum_min = S_min (l, b, sm, dist_to_sun, w50, get_P(t), DM, T_copy);
+//        DM = get_DM (t, sun, &l, &b, &sm);
+        lum_min = S_min (l, b, sm, dist_to_sun, w50, P, DM, T_copy);
     } else {
         lum_min = 1e9;
     }
@@ -82,7 +82,7 @@ double NeutronStar::is_pulsar_visible (double t, SpecialStar * sun, TMap * T_cop
 // Do not use this function twice!!!
 // For singular use only!
 //--------------------------------------------//
-bool parametrs_lum::is_beam_on(double P) {
+bool LMFlat::is_beam_on(double P) {
     double f, chance_1;
     f=0.09*pow(log10(P/10.0),2.)+0.03;
     chance_1 = rand () / rand_high_board;
@@ -96,20 +96,18 @@ bool parametrs_lum::is_beam_on(double P) {
 }
 
 
-parametrs_lum::parametrs_lum (ifstream * in) {
+LMFlat::LMFlat (vector <double> *) {
 }
 
-void parametrs_lum::print_description (ostream * out) {
-    *out<<"// Используется модель светимости C, а именно модель, где   //"<<endl;
-    *out<<"// распределение энергии внутри конуса излучения принято    //"<<endl;
-    *out<<"// плоским как это было у Faucher                           //"<<endl;
-    *out<<"//----------------------------------------------------------//"<<endl;
+void LMFlat::print_description (ostream * out) {
+    *out<<"#// Используется модель светимости C, а именно модель, где   //"<<endl;
+    *out<<"#// распределение энергии внутри конуса излучения принято    //"<<endl;
+    *out<<"#// плоским как это было у Faucher                           //"<<endl;
+    *out<<"#//----------------------------------------------------------//"<<endl;
 }
 
-void parametrs_lum::print_parametrs   (ostream * out) {
-    *out<<"//                  Параметров у модели нет                 //"<<endl;
-    *out<<"//----------------------------------------------------------//"<<endl;
+void LMFlat::print_parameters   (ostream * out) {
+    *out<<"#//                  Параметров у модели нет                 //"<<endl;
+    *out<<"#//----------------------------------------------------------//"<<endl;
 }
 
-void parametrs_lum::print_short      (ostream * out) {
-}

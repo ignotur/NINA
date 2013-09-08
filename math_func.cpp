@@ -5,7 +5,9 @@
 
 using namespace std;
 
-double rho (double r) {
+double norm_distr ();
+
+double RDFFaucher::rho (double r) {
     double const a = 1.64, b = 4.01, R_1 = 0.55, R_sol = 8.5;
     double const A = 0.0545821764459; // константа получена численным интегрированием
 
@@ -16,6 +18,12 @@ double rho (double r) {
     return res;
 }
 
+void  RDFFaucher::print_description (ostream * out) {
+*out<<"#The radial distribution function of stars in the Galaxy is as in"<<endl;
+*out<<"#article by Faucher-Giguere, Kaspi (2006)"<<endl;
+*out<<"#----------------------------------------------------------------"<<endl;
+}
+
 //--------------------------------------------//
 // Другие варинты радиального распределения
 
@@ -23,17 +31,23 @@ double rho (double r) {
 // на основе распределения наблюдаемой поверхностной
 // яркости в полосе J Sc галактик
 
-double rho_P90 (double r) {
+double RDFKruit::rho (double r) {
     double res, R_exp = 4.5, a_R = 1.0683;
     res = a_R*r/pow(R_exp, 2)*exp(-r/R_exp);
     return res;
 }
 
+void  RDFKruit::print_description (ostream * out) {
+*out<<"#The radial distribution function of stars in the Galaxy is as in"<<endl;
+*out<<"#article by van der Kruit (1987). Based on observed distribution"<<endl;
+*out<<"#of brightness in J band for Sc galaxies."<<endl;
+*out<<"#----------------------------------------------------------------"<<endl;
+}
 // B00 модель построенная на основе данных
 // о распределении яркости в далёком инфракрасном диапазоне
 // и милиметрового излучения
 
-double rho_B00 (double r) {
+double RDFB0::rho  (double r) {
     double res, r_exp = 1.78, sigma = 2.38, r_centr = 4.7, weight = 3.8781977;
 
     if (r <= r_centr) {
@@ -46,22 +60,89 @@ double rho_B00 (double r) {
 
     return res;
 }
-
+void  RDFB0::print_description (ostream * out) {
+*out<<"#The radial distribution function of stars in the Galaxy is"<<endl;
+*out<<"#based on information about distribution of brightness in "<<endl;
+*out<<"#in far IR and milimeter radiation."<<endl;
+*out<<"#----------------------------------------------------------------"<<endl;
+}
 // Модель, построенная по распределению поверхностной плотности
 // остатков взрывов сверхновых
-
-double rho_SN_remnant (double r) {
+double RDFSN::rho (double r) {
     double res, alpha = 2, beta = 3.53, R_0 = 8.5;
     res = pow(r/R_0, alpha)*exp(-beta*(r-R_0)/R_0);
     return res;
 }
 
+void  RDFSN::print_description (ostream * out) {
+*out<<"#The radial distribution function of stars in the Galaxy is"<<endl;
+*out<<"#based on distribution of volume density of SN remnants "<<endl;
+*out<<"#----------------------------------------------------------------"<<endl;
+}
 // Модель построенная на наблюдении пульсаров
 
-double rho_F06 (double r) {
+double RDFPuls::rho (double r) {
     double res, R_peak = 7.04, sigma = 1.83;
     res = 1/sqrt(2*pi) / sigma * exp(-pow(r-R_peak, 2)/2/pow(sigma,2));
     return res;
+}
+
+void  RDFPuls::print_description (ostream * out) {
+*out<<"#The radial distribution function of stars in the Galaxy is"<<endl;
+*out<<"#based on distribution of pulsars (old) "<<endl;
+*out<<"#----------------------------------------------------------------"<<endl;
+}
+
+GDGauss::GDGauss (vector <double> * val) {
+
+if (val->size() != 4)	{
+	print_error_parameters_not_enough ();
+	exit(3);	
+}
+else
+	values = val;
+}
+
+double GDGauss::generate_next () {
+double res;
+	res = values->at(1) + values->at(3) * norm_distr();	
+return res;
+}
+
+GDMGauss::GDMGauss (vector <double> * val) {
+
+if (val->size() < 5)	{
+	print_error_parameters_not_enough ();
+	exit(4);	
+}
+else
+	values = val;
+}
+
+void GDGauss::print_param (ostream * out){
+*out<<"#Parameters of gaussian distribution: center - "<<values->at(1)<<", variance - "<<values->at(3)<<endl;
+}
+
+void GDMGauss::print_param (ostream * out){
+*out<<"#Parameters of multi-gaussian distribution:"<<endl;
+	for (int i=0; i < values->size()/6; i++)
+		 *out<<"#center - "<<values->at(4*i+3)<<", variance - "<<values->at(4*i+5)<<endl;
+}
+
+double GDMGauss::generate_next () {
+double res;
+double chance_1, sum=0;
+
+        chance_1 = rand () / rand_high_board;
+	for (int i=0; i < values->size()/6; i++)	{
+		sum += values->at(4*i+1);
+			if (chance_1 < sum)		{
+				res = values->at(4*i+3) + values->at(4*i+5) * norm_distr();	
+				return res;
+			}
+	}
+		
+return res;
 }
 
 double expon_vel(double y) {
@@ -240,12 +321,4 @@ double rho_hartman (double u) {
     res = 4*pi/pow(1+pow(u,2), 2);
     return res;
 }
-/*
-// Дифференциальное уравнение для потери углового момента последством
-// магнитного торможения
-// По статье Hurley, 2000
 
-void diff_equi_J (int n, double * input) {
-double result
-result = 5.83 * 1e-16 *
-} */
