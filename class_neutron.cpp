@@ -266,8 +266,7 @@ base_lm  = lm;
     // Генерация оси вращения пульсара и расположения магнитного полюса
     chance_1  = rand()/rand_high_board;
     chance_1 *= 2*pi;
-
-    do {
+     do {
         chance_2  = rand()/rand_high_board;
         chance_2 *= pi;
         chance_2 -= pi/2.;

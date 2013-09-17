@@ -102,7 +102,7 @@ double S_min (double l, double b, float sm, double dist, double w, double P, flo
     double tau_sampl_parkes = 1.5*t_sampl_parkes, tau_sampl_swinburne = 1.5*t_sampl_swinburne;
     double beta = 1.5, sigma = 8, T_rec = 21, Tb_sky, G = 0.64, N_p = 2, t_int_parkes = 2100, t_int_swinburne = 265;
 
-    tau_scatt = 1000.*pow(sm/292., 1.2)*dist*pow(nu, -4.4);
+//    tau_scatt = 1000.*pow(sm/292., 1.2)*dist*pow(nu, -4.4);
 
     //if (dist<20)
     //cout<<"DM - "<<DM<<", dist - "<<dist<<", DM/dist - "<<DM/dist<<endl;
@@ -111,8 +111,8 @@ double S_min (double l, double b, float sm, double dist, double w, double P, flo
     // Lorimer et al. ArXiv:0607640
     //------------------------------------------------------//
 
-    //tau_scatt = 0.154*log10(DM)+1.07*pow(log10(DM), 2.) - 7.;
-    //tau_scatt = pow(10., tau_scatt);
+    tau_scatt = 0.154*log10(DM)+1.07*pow(log10(DM), 2.) - 7.;
+    tau_scatt = pow(10., tau_scatt);
 
     //------------------------------------------------------//
 

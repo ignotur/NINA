@@ -33,6 +33,8 @@ void print_param (ostream *);
 void print_error_no_RDF(char);
 void print_error_parameters_not_enough ();
 void print_error_flag_non_recognised (char val);
+void print_error_no_MFD (char);
+void print_error_no_LM  (char);
 
 double version ();
 
@@ -194,6 +196,55 @@ double get_incl  (double, double, double, double);
 void print_description (ostream *);
 void print_parameters  (ostream *);
 };
+//--------------------------------------------------//
+// Child class for step magnetic field decay
+//--------------------------------------------------//
+
+class MFDStep : public MFD {
+public:
+MFDStep (vector <double> *);
+double get_P     (double, double, double, double);
+double get_dot_P (double, double, double, double);
+double get_B     (double, double, double, double); 
+double get_incl  (double, double, double, double);
+void print_description (ostream *);
+void print_parameters  (ostream *);
+private:
+double t_1, t_2, step;
+};
+//--------------------------------------------------//
+// Child class for Pons-like magnetic field decay
+//--------------------------------------------------//
+
+class MFDPons : public MFD {
+public:
+MFDPons (vector <double> *);
+double get_P     (double, double, double, double);
+double get_dot_P (double, double, double, double);
+double get_B     (double, double, double, double); 
+double get_incl  (double, double, double, double);
+void print_description (ostream *);
+void print_parameters  (ostream *);
+private:
+double tau_ohm, alpha;
+};
+
+//--------------------------------------------------//
+// Child class for exponential magnetic field decay
+//--------------------------------------------------//
+
+class MFDExpon : public MFD {
+public:
+MFDExpon (vector <double> *);
+double get_P     (double, double, double, double);
+double get_dot_P (double, double, double, double);
+double get_B     (double, double, double, double); 
+double get_incl  (double, double, double, double);
+void print_description (ostream *);
+void print_parameters  (ostream *);
+private:
+double tau_ohm;
+};
 
 //--------------------------------------------------//
 // Parent class for model of luminosity 
@@ -216,6 +267,21 @@ bool   is_beam_on (double);
 LMFlat (vector <double> *);
 void print_description (ostream *);
 void print_parameters  (ostream *); 
+};
+
+//--------------------------------------------------//
+// Child class for model of luminosity (exponential distribution)
+//--------------------------------------------------//
+class LMExpon : public LM {
+public:
+double is_pulsar_visible (double, SpecialStar *, TMap *, double, double, double, double, double, double, float);
+bool   is_beam_on (double);
+LMExpon (vector <double> *);
+void print_description (ostream *);
+void print_parameters  (ostream *); 
+private:
+double ds, dlum, x_axis, y_axis, z_axis;
+bool   does_axis_set;
 };
 
 //--------------------------------------------------//

@@ -100,14 +100,13 @@ LMFlat::LMFlat (vector <double> *) {
 }
 
 void LMFlat::print_description (ostream * out) {
-    *out<<"#// Используется модель светимости C, а именно модель, где   //"<<endl;
-    *out<<"#// распределение энергии внутри конуса излучения принято    //"<<endl;
-    *out<<"#// плоским как это было у Faucher                           //"<<endl;
+    *out<<"#// Model C is the model where energy distribution in the    //"<<endl;
+    *out<<"#// cone is flat i.e. same as in Manchester et al. (2006)    //"<<endl;
     *out<<"#//----------------------------------------------------------//"<<endl;
 }
 
 void LMFlat::print_parameters   (ostream * out) {
-    *out<<"#//                  Параметров у модели нет                 //"<<endl;
+    *out<<"#//            This model has no parameters.                 //"<<endl;
     *out<<"#//----------------------------------------------------------//"<<endl;
 }
 

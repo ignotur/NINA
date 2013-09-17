@@ -104,12 +104,27 @@ GD  * b_distr;
     }
 
 
-    if (decay == 'I')	
+    if (decay == 'A')	
     decay_model = new MFDConst (&param_decay);
+    else if (decay == 'B')
+    decay_model = new MFDStep  (&param_decay);
+    else if (decay == 'C')
+    decay_model = new MFDPons  (&param_decay);
+    else if (decay == 'D')
+    decay_model = new MFDExpon (&param_decay);
+    else	{
+    print_error_no_MFD(decay);
+    return 6;
+    }
 
-    if (lum_model == 'C')
-    lum_mod = new LMFlat (&list_lum);
-
+    if (lum_model == 'B')
+    lum_mod = new LMExpon (&list_lum);
+    else if (lum_model == 'C')
+    lum_mod = new LMFlat  (&list_lum);
+    else	{
+    print_error_no_LM(lum_model);	
+    return 7;
+    }
 //    parametrs_lum param_lum ();
 //    else
 
@@ -138,19 +153,20 @@ GD  * b_distr;
 	return 5;
    }
 
-
+    cout<<"#Distribution of initial periods."<<endl;
     p_distr->print_param        (&cout);
+    cout<<"#Distribution of initial magnetic fields."<<endl;
     b_distr->print_param        (&cout);
 
-    cout<<"#// Параметры популяциии:                                          "<<endl;
+    cout<<"#// Parameters of synthesis:                                    "<<endl;
     cout<<"#// T_start "<<T<<endl;
     cout<<"#// star formation rate "<<number_stars<<endl;
     cout<<"#//----------------------------------------------------------//"<<endl;
-    cout<<"#// Инициализация расчётов.                                  //"<<endl;
+    cout<<"#// We are starting computations                             //"<<endl;
     srand(time(0));
     TMap T_copy;
 
-    cout<<"#// Инициализация расчётов закончена.                        //"<<endl;
+    cout<<"#// Computations have been started                           //"<<endl;
     cout<<"#//----------------------------------------------------------//"<<endl;
 
 ofstream out_res;
@@ -236,7 +252,7 @@ char file_res_hid[40];
 
     print_head (&out_res);
 
-    out_res<<"#// Параметры модели:                                          "<<endl;
+    out_res<<"#// Parameters of model:                                        "<<endl;
     out_res<<"#// T_start "<<T<<endl;
     out_res<<"#// star formation rate "<<number_stars<<endl;
     decay_model->print_description  (&out_res);
@@ -250,7 +266,7 @@ char file_res_hid[40];
     struct tm * timeinfo;
     time (&rawtime);
     timeinfo = localtime(&rawtime);
-    out_res<<"#// Запушено "<<asctime(timeinfo);
+    out_res<<"#// Synthesis is started at "<<asctime(timeinfo);
 
 
     OBStar      * ancester;
@@ -412,9 +428,9 @@ int shet_i = 0;
 
     time (&rawtime);
     timeinfo = localtime(&rawtime);
-    out_res<<"#// Закончено "<<asctime(timeinfo);
-    out_res<<"#// За время работы пульсаров замечено  "<<counter<<endl;
-    out_res<<"#// За время работы магнетаров замечено "<<n_magnet<<endl;
+    out_res<<"#// Finished at "<<asctime(timeinfo);
+    out_res<<"#// During synthesis it was detected as many pulsars   as  "<<counter<<endl;
+    out_res<<"#// During synthesis it was detected as many magnetars as "<<n_magnet<<endl;
 
 } 
 else if (type_of_run == 2) {
@@ -517,9 +533,9 @@ T += 1000;
 
 time (&rawtime);
 timeinfo = localtime(&rawtime);
-out_res<<"#// Закончено "<<asctime(timeinfo);
-out_res<<"#// За время работы пульсаров замечено  "<<counter<<endl;
-out_res<<"#// За время работы магнетаров замечено "<<n_magnet<<endl;
+out_res<<"#// Finished at "<<asctime(timeinfo);
+out_res<<"#// During synthesis it was detected as many pulsars   as  "<<counter<<endl;
+out_res<<"#// During synthesis it was detected as many magnetars as "<<n_magnet<<endl;
 
 
 

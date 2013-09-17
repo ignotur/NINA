@@ -39,12 +39,12 @@ MFDConst::MFDConst (vector <double> * values) {
 }
 
 void MFDConst::print_description (ostream * out) {
-    *out<<"#//           Модель без убывания магнитного поля            //"<<endl;
+    *out<<"#//                Constant magnetic field                   //"<<endl;
     *out<<"#//----------------------------------------------------------//"<<endl;
 }
 
 void MFDConst::print_parameters   (ostream * out) {
-    *out<<"#//   Так как поле не убывает параметров у модели тоже нет   //"<<endl;
+    *out<<"#//   This model has no parameters because field is constant //"<<endl;
     *out<<"#//----------------------------------------------------------//"<<endl;
 }
 
