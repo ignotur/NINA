@@ -120,13 +120,13 @@ else
 }
 
 void GDGauss::print_param (ostream * out){
-*out<<"#Parameters of gaussian distribution: center - "<<values->at(1)<<", variance - "<<values->at(3)<<endl;
+*out<<"#Parameters of gaussian distribution: center - "<<values->at(1)<<", standard deviation - "<<values->at(3)<<endl;
 }
 
 void GDMGauss::print_param (ostream * out){
 *out<<"#Parameters of multi-gaussian distribution:"<<endl;
 	for (int i=0; i < values->size()/6; i++)
-		 *out<<"#center - "<<values->at(4*i+3)<<", variance - "<<values->at(4*i+5)<<endl;
+		 *out<<"#weight - "<<values->at(6*i+1)<<", center - "<<values->at(6*i+3)<<", standard deviation - "<<values->at(6*i+5)<<endl;
 }
 
 double GDMGauss::generate_next () {
@@ -135,9 +135,9 @@ double chance_1, sum=0;
 
         chance_1 = rand () / rand_high_board;
 	for (int i=0; i < values->size()/6; i++)	{
-		sum += values->at(4*i+1);
+		sum += values->at(6*i+1);
 			if (chance_1 < sum)		{
-				res = values->at(4*i+3) + values->at(4*i+5) * norm_distr();	
+				res = values->at(6*i+3) + values->at(6*i+5) * norm_distr();	
 				return res;
 			}
 	}
