@@ -1,37 +1,34 @@
 #include <cmath>
+#include <gsl/gsl_vector.h>
 #include "stars.h"
 
 using namespace std;
 
-double NeutronStar::get_B (double t) {
+double MFDStep::get_B (double t, double B, double i_incl, double P) {
     double res;
-    t = t - tau;
 
-    if (t < paramet_B->get_time_I()) {
+    if (t < t_1) {
         res = B;
-    } else if ((t >= paramet_B->get_time_I()) && (t <= paramet_B->get_time_II())) {
-        res = B / paramet_B->get_step();
-    } else if (t > paramet_B->get_time_II()) {
+    } else if ((t >= t_1) && (t <= t_2)) {
+        res = B / step;
+    } else if (t > t_2) {
         res = 0;
     }
 
     return res;
 }
-
-double NeutronStar::get_incl (double t) {
+double MFDStep::get_incl (double t, double B, double i_incl, double P) {
     return i_incl;
 }
-
-double NeutronStar::get_P(double t) {
-    double res, I, t_tmp;
-    t = t - tau;
+double MFDStep::get_P(double t, double B, double i_incl, double P) {
+    double res, I, R = 1e6, t_tmp;
     t_tmp = 0;
 
-    I = 2./5. * M*M_sol*pow(R,2);
+      I = 1e45;
 
-    if (t > paramet_B->get_time_I())	{
+    if (t > t_1)	{
         t_tmp = t;
-        t =  paramet_B->get_time_I();
+        t =  t_1;
     }
 
     res = P * sqrt(1. + 16*t*3.2e7*pow(R, 6)*B*B*pi*pi/(3.*pow(light_velocity,3)*I*P*P));
@@ -40,62 +37,43 @@ double NeutronStar::get_P(double t) {
         return res;
     }
 
-    if (t_tmp >  paramet_B->get_time_II()) {
-        t = paramet_B->get_time_II();
+    if (t_tmp > t_2) {
+        t = t_2;
     } else {
-        t = t_tmp - paramet_B->get_time_I();
+        t = t_tmp - t_1;
     }
 
-    res = res * sqrt(1. + 16*t*3.2e7*pow(R, 6)*B*B/pow(paramet_B->get_step(), 2)*pi*pi/(3.*pow(light_velocity,3)*I*res*res));
+    res = res * sqrt(1. + 16*t*3.2e7*pow(R, 6)*B*B/pow(step, 2)*pi*pi/(3.*pow(light_velocity,3)*I*res*res));
 
     return res;
 }
 
-double NeutronStar::get_dot_P (double t) {
-    double res, I;
-    I = 2./5. * M*M_sol*pow(R,2);
-    //res = pow(get_B(t)/3.2e19, 2)/get_P(t);
-    res = 8*pi*pi*pow(R,6)/3./pow(light_velocity, 3)/I/get_P(t)*pow(get_B(t),2);
+double MFDStep::get_dot_P (double t, double B, double i_incl, double P) {
+    double res, I, R;
+    I = 1e45; R = 1e6;
+    res = 8*pi*pi*pow(R,6)/3./pow(light_velocity, 3)/I/get_P(t, B, i_incl, P)*pow(get_B(t, B, i_incl, P),2);
     return res;
 }
 
-parametrs_B::parametrs_B (ifstream * in) {
-    *in>>time_I;
-    *in>>time_II;
-    *in>>step;
+MFDStep::MFDStep (vector <double> * values) {
+	t_1  = values->at(1);
+	t_2  = values->at(3);
+	step = values->at(5);
+
 }
 
-void parametrs_B::print_description (ostream * out) {
-    *out<<"//Учебная модель со ступенчатой функцией затухания магнитно-//"<<endl;
-    *out<<"//го поля. Кроме того существует время за которое поле исче-//"<<endl;
-    *out<<"//зает.                                                     //"<<endl;
-    *out<<"//----------------------------------------------------------//"<<endl;
+void MFDStep::print_description (ostream * out) {
+    *out<<"#//Model with step-like magnetic field decay. It has two time//"<<endl;
+    *out<<"#//one for first decay and the second for vanish of the field//"<<endl;
+    *out<<"#//----------------------------------------------------------//"<<endl;
 }
 
-void parametrs_B::print_parametrs   (ostream * out) {
-    *out<<"//      Параметры модели убывания магнитного поля           //"<<endl;
-    *out<<"//----------------------------------------------------------//"<<endl;
-    *out<<"// time I - "<<time_I<<endl;
-    *out<<"// time II- "<<time_II<<endl;
-    *out<<"// step   - "<<step<<endl;
-    *out<<"//----------------------------------------------------------//"<<endl;
-}
-
-void parametrs_B::print_short       (ostream * out) {
-    *out<<"time I - "<<time_I<<endl;
-    *out<<"time II- "<<time_II<<endl;
-    *out<<"step   - "<<step<<endl;
-}
-
-double parametrs_B::get_time_I (void) {
-    return time_I;
-}
-
-double parametrs_B::get_time_II (void) {
-    return time_II;
-}
-
-double parametrs_B::get_step (void) {
-    return step;
+void MFDStep::print_parameters   (ostream * out) {
+    *out<<"#//      Parameters of magnetic field decay model            //"<<endl;
+    *out<<"#//----------------------------------------------------------//"<<endl;
+    *out<<"#// time I - "<<t_1<<endl;
+    *out<<"#// time II- "<<t_2<<endl;
+    *out<<"#// step   - "<<step<<endl;
+    *out<<"#//----------------------------------------------------------//"<<endl;
 }
 

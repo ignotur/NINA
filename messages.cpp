@@ -8,9 +8,10 @@ return 0.8;
 
 void print_head (ostream * out)	{
 *out<<"#//----------------------------------------------------------//"<<endl;
-*out<<"#// Пульсарная популяция. Версия "<<version()<<" см соглашение о версиях //"<<endl;
-*out<<"#// Автор: Игошев Андрей, научный руководитель: А.Ф. Холтыгин//"<<endl;
-*out<<"#// e-mail: ignotur@gmail.com СПбГУ, 2010-2013               //"<<endl;
+*out<<"#// Population synthesis code. Version "<<version()<<" (see  //"<<endl;
+*out<<"#// the version agreement)                                   //"<<endl;
+*out<<"#// Author: Andrei Igoshev. Superviser: A.F. Kholtygin       //"<<endl;
+*out<<"#// e-mail: ignotur@gmail.com SPbU, 2010-2013                //"<<endl;
 *out<<"#//----------------------------------------------------------//"<<endl;
 }
 
@@ -60,7 +61,7 @@ void print_param (ostream * out, char star_distr, bool arms, char init_distr_p, 
 }
 
 void print_error_no_RDF(char tmp) {
-cout<<"Error 2: no model of with identifier "<<tmp<<" was specified. Check file with parameters."<<endl;
+cout<<"Error 2: no RDF model with identifier "<<tmp<<" was specified. Check file with parameters."<<endl;
 }
 
 void print_error_parameters_not_enough () {
@@ -69,4 +70,12 @@ cout<<"Error 3: not enough parameters are specified for generating of initial di
 
 void print_error_flag_non_recognised (char val) {
 cout<<"Error 5: in file with parameters flag for the distribution of initial "<<val<<" is not recognised."<<endl;
+}
+
+void print_error_no_MFD (char val) {
+cout<<"Error 6: no MFD model with identifier "<<val<<" is specified. Check parameter file"<<endl;
+}
+
+void print_error_no_LM (char val) {
+cout<<"Error 7: no LM model with identifier "<<val<<" is specified. Check parameter file"<<endl;
 }

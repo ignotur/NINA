@@ -16,7 +16,7 @@
 
 list = density.NE2001.o  dmdsm.NE2001.o  neclumpN.NE2001.o  neLISM.NE2001.o     nevoidN.NE2001.o  scattering98.o
 #list_mono  = class.cpp new_main.cpp math_func.cpp astro_func.cpp Runge_Kutta.cpp class_sun.cpp class_neutron.cpp class_T_map.cpp
-list_mono  = class.cpp comm_main.cpp math_func.cpp astro_func.cpp Runge_Kutta_Fehlberg.cpp class_sun.cpp class_neutron.cpp class_T_map.cpp bp.cpp messages.cpp syntax.cpp without_field_decay.cpp  flat_distr_lum_model_mod.cpp ns_methods.cpp
+list_mono  = class.cpp comm_main.cpp math_func.cpp astro_func.cpp Runge_Kutta_Fehlberg.cpp class_sun.cpp class_neutron.cpp class_T_map.cpp bp.cpp messages.cpp syntax.cpp without_field_decay.cpp  flat_distr_lum_model_mod.cpp ns_methods.cpp step_field_decay.cpp Geppert_field_decay.cpp expon_field_decay.cpp norm_distr_lum_model.cpp 
 list_para  = class.cpp omp_main.cpp math_func.cpp astro_func.cpp Runge_Kutta_Fehlberg.cpp class_sun.cpp class_neutron.cpp class_T_map.cpp bp.cpp
 list_otl   = class.cpp otl.cpp math_func.cpp astro_func.cpp Runge_Kutta.cpp class_sun.cpp class_neutron.cpp class_T_map.cpp bp.cpp
 list_param = param_main.cpp class_T_map.cpp class.cpp math_func.cpp astro_func.cpp Runge_Kutta.cpp class_sun.cpp class_neutron.cpp bp.cpp
