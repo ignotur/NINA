@@ -1,3 +1,5 @@
+fortran=g95
+
 list = density.NE2001.o  dmdsm.NE2001.o  neclumpN.NE2001.o  neLISM.NE2001.o	nevoidN.NE2001.o  scattering98.o 
 lib: $(list)
 #		g++ $(list) -lf2c -lm
@@ -7,7 +9,7 @@ main.o: main.cpp
 		g++ -O3 -c main.cpp
 %.o:%.f
 #		g++ -c $^
-		f77 -O3 -c $^ -o $@
+		${fortran} -O3 -c $^ -o $@
 %.o:%.c
 		g++ -c $^
 clean:

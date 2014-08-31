@@ -1,8 +1,8 @@
 #####################################################################
-##            Makefile для сборки пульсарной популяции             ##
+##            Makefile for population synthesis code               ##
 #####################################################################
-# Назание вариации модели состоит из буквы 
-# и латинской цифры e.g.  make AIII
+# The name of model contains a letter and roman digit 
+# e.g.  make AIII
 # Буквы - модель светимости
 # Цифры - модель убывание поля
 # A   - модель со сгустками плазмы
@@ -32,4 +32,6 @@ list_IV    = expon_field_decay.cpp
 list_V     = two_comp_field_decay_mod.cpp
 keys = 
 main:         ./ne2001_f/libNE2001.a 	$(list_mono) $(list_C) $(list_I)
-		g++  -O3 $(list_mono) -o population.out  -L./ne2001_f/ -lNE2001 -lf2c -lm $(keys)
+		g++  -O3 $(list_mono) -o population.out  -L./ne2001_f/ -lNE2001 -L/opt/local/lib/ -lf95 -I/opt/local/include -L/opt/local/lib -lgsl -lgslcblas -lm $(keys)
+./ne2001_f/libNE2001.a: 
+		cd ne2001_f/; make

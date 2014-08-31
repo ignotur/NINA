@@ -64,8 +64,8 @@ c       farm:   factors that multiply n_e^2 when calculating SM
      .     harm(narmsmax),narm(narmsmax),warm(narmsmax),farm(narmsmax)
 
 	real armpaths, armdistances
-	common/armpathlengths/ armpaths(narmsmax1), armdistances(narmsmax1)
-
+	common/armpathlengths/ armpaths(narmsmax1)
+        common/armpathlengths/ armdistances(narmsmax1)
 
 
 
@@ -191,7 +191,7 @@ c    .              ne1,ne2,negc,nelism,necN,nevN
 	limit=' '
 c	dstep=0.02			! Step size in kpc
 c       dstep = min(h1, h2) / 10.       ! step size in terms of scale heights
-	dstep=0.01
+	dstep=0.001
         if(ndir.lt.0) dtest=dist     
         if(ndir.ge.0) dtest=dmpsr/(n1h1/h1)   ! approximate test distance
         nstep = dtest / dstep	        ! approximate number of steps
@@ -425,7 +425,7 @@ c subtract dd from armpath for latest arm (or iterarm) at end of LOS
 
 	do i=1,narmsmax1
 	  armdistances(i) = 
-     .        armdistances(i) / (max(1,armpaths(i)/dstep))	! mean distance of arm 
+     .        armdistances(i) / (max(1.d0,armpaths(i)/dstep))	! mean distance of arm 
 	enddo
 	dm1 = dm1 * dstep_pc      
 	dm2 = dm2 * dstep_pc      
