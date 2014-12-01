@@ -381,7 +381,7 @@ c        write(25,
 c     .     "(4(f7.3,1x),f8.4,1x,e10.3,1x,i1,1x,i4,1x,i2)") 
 c     .     d,x,y,z,ne,sm_term,whicharm,hitclump,hitvoid
 10	continue
-	stop 'loop limit'
+c	stop 'loop limit'
 
 20	limit='>'			! Only lower limit is possible
 	dist=d-0.5*dstep

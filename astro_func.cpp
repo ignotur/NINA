@@ -98,7 +98,7 @@ double S_min (double l, double b, float sm, double dist, double w, double P, flo
     double res, DM_0_parkes, DM_0_swinburne, delta_beam, tau_scatt;
     double W_l_parkes, W_l_swinburne, S_min_Parkes, S_min_Swinburne;
 
-    double N_ch = 96, t_sampl_parkes = 250e-6, t_sampl_swinburne = 125e-6, nu = 1.4e9, delta_nu = 288e6;
+    double N_ch = 96, t_sampl_parkes = 250e-6, t_sampl_swinburne = 125e-6, nu = 1.4e3, delta_nu = 288e6;
     double tau_sampl_parkes = 1.5*t_sampl_parkes, tau_sampl_swinburne = 1.5*t_sampl_swinburne;
     double beta = 1.5, sigma = 8, T_rec = 21, Tb_sky, G = 0.64, N_p = 2, t_int_parkes = 2100, t_int_swinburne = 265;
 
@@ -112,15 +112,16 @@ double S_min (double l, double b, float sm, double dist, double w, double P, flo
     //------------------------------------------------------//
 
     tau_scatt = 0.154*log10(DM)+1.07*pow(log10(DM), 2.) - 7.;
-    tau_scatt = pow(10., tau_scatt);
+    tau_scatt = pow(10., tau_scatt)/1.e3;
 
     //------------------------------------------------------//
 
-    delta_beam = exp(-pow(rand()/rand_high_board, 2));
+//  delta_beam = exp(-pow(rand()/rand_high_board, 2));
+    delta_beam = 1.0;
     Tb_sky = T_sky (l,b, T_copy);
 
-    DM_0_parkes = N_ch*t_sampl_parkes*pow(nu,3)/8299./delta_nu;
-    DM_0_swinburne = N_ch*t_sampl_swinburne*pow(nu,3)/8299./delta_nu;
+    DM_0_parkes = N_ch*t_sampl_parkes*pow(nu,3)/8299./(delta_nu/1.e6);
+    DM_0_swinburne = N_ch*t_sampl_swinburne*pow(nu,3)/8299./(delta_nu/1.e6);
     W_l_parkes = sqrt(w*w + tau_sampl_parkes*tau_sampl_parkes + pow(t_sampl_parkes*DM/DM_0_parkes, 2) + tau_scatt*tau_scatt);
     W_l_swinburne = sqrt(w*w + tau_sampl_swinburne*tau_sampl_swinburne + pow(t_sampl_swinburne*DM/DM_0_swinburne, 2) + tau_scatt*tau_scatt);
     S_min_Parkes = delta_beam * beta*sigma*(T_rec + Tb_sky)/G/sqrt(N_p*delta_nu*t_int_parkes)*sqrt(W_l_parkes/(P-W_l_parkes));
@@ -133,6 +134,12 @@ double S_min (double l, double b, float sm, double dist, double w, double P, flo
         res = S_min_Parkes;
     }
 
+
+    cout << "S_min_Parkes -- "<<S_min_Parkes << ", S_min_Swinburne -- "<<S_min_Swinburne << endl;
+    if (isnan(S_min_Parkes))	{
+	cout << "Debugging -- " << P - W_l_parkes << "\t" << P << "\t" << w << "\t" <<sqrt(tau_scatt*tau_scatt)<<endl; 
+	cout << "DM -- "<<DM<<endl;
+    }
     //res = min (S_min_Parkes, S_min_Swinburne);
 
     return res;

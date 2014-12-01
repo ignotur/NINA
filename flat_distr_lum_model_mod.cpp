@@ -52,11 +52,11 @@ double LMFlat::is_pulsar_visible (double t, SpecialStar * sun, TMap * T_copy, do
         l=360.+l;
     }
 
-    L=log10(L_0*pow(P, eps_P)*pow(dot_P/1e-15, eps_dot_P))+L_corr*norm_distr()+0.5;
-    L = pow(10., L)/pow(dist_to_sun, 2.);
+    L=log10(L_0*pow(P, eps_P)*pow(dot_P/1e-15, eps_dot_P))+L_corr*norm_distr();
+    L = pow(10.0, L)/pow(dist_to_sun, 2.);
 
 
-    if (dist_to_sun < 20 && abs(b) < 15 && (l<=50 || l>=230) && L>=5.e-6)  	{
+    if (dist_to_sun < 25 && abs(b) < 15 && (l<=50 || l>=230) && L>=5.e-6)  	{
         //	DM=15*dist_to_sun;
 //        DM = get_DM (t, sun, &l, &b, &sm);
         lum_min = S_min (l, b, sm, dist_to_sun, w50, P, DM, T_copy);

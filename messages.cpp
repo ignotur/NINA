@@ -3,15 +3,15 @@
 using namespace std;
 
 double version () { 
-return 0.8;
+return 0.82;
 }
 
 void print_head (ostream * out)	{
 *out<<"#//----------------------------------------------------------//"<<endl;
 *out<<"#// Population synthesis code. Version "<<version()<<" (see  //"<<endl;
 *out<<"#// the version agreement)                                   //"<<endl;
-*out<<"#// Author: Andrei Igoshev. Superviser: A.F. Kholtygin       //"<<endl;
-*out<<"#// e-mail: ignotur@gmail.com SPbU, 2010-2013                //"<<endl;
+*out<<"#// Author: Andrei Igoshev.                                  //"<<endl;
+*out<<"#// e-mail: ignotur@gmail.com, 2010-2014                     //"<<endl;
 *out<<"#//----------------------------------------------------------//"<<endl;
 }
 
