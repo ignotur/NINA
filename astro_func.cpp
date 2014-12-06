@@ -111,10 +111,18 @@ double S_min (double l, double b, float sm, double dist, double w, double P, flo
     // Lorimer et al. ArXiv:0607640
     //------------------------------------------------------//
 
-    tau_scatt = 0.154*log10(DM)+1.07*pow(log10(DM), 2.) - 7.;
-    tau_scatt = pow(10., tau_scatt)/1.e3;
+//    tau_scatt = 0.154*log10(DM)+1.07*pow(log10(DM), 2.) - 7.;
+  //  tau_scatt = pow(10., tau_scatt)/1.e3;
 
     //------------------------------------------------------//
+
+    //------------------------------------------------------//
+    //  Bhat, Cordes, Camilo et al. (2004)
+    //------------------------------------------------------//
+
+    tau_scatt = pow(10.0, (-6.46 + 0.154 * log10(DM) + 1.07 * pow(log10(DM), 2))) * pow((nu/1e3), -3.86)/1000.0;
+
+
 
 //  delta_beam = exp(-pow(rand()/rand_high_board, 2));
     delta_beam = 1.0;
@@ -124,8 +132,15 @@ double S_min (double l, double b, float sm, double dist, double w, double P, flo
     DM_0_swinburne = N_ch*t_sampl_swinburne*pow(nu,3)/8299./(delta_nu/1.e6);
     W_l_parkes = sqrt(w*w + tau_sampl_parkes*tau_sampl_parkes + pow(t_sampl_parkes*DM/DM_0_parkes, 2) + tau_scatt*tau_scatt);
     W_l_swinburne = sqrt(w*w + tau_sampl_swinburne*tau_sampl_swinburne + pow(t_sampl_swinburne*DM/DM_0_swinburne, 2) + tau_scatt*tau_scatt);
-    S_min_Parkes = delta_beam * beta*sigma*(T_rec + Tb_sky)/G/sqrt(N_p*delta_nu*t_int_parkes)*sqrt(W_l_parkes/(P-W_l_parkes));
-    S_min_Swinburne = delta_beam * beta*sigma*(T_rec + Tb_sky)/G/sqrt(N_p*delta_nu*t_int_swinburne)*sqrt(W_l_swinburne/(P-W_l_swinburne));
+
+    if (P > W_l_parkes) {
+	    S_min_Parkes = delta_beam * beta*sigma*(T_rec + Tb_sky)/G/sqrt(N_p*delta_nu*t_int_parkes)*sqrt(W_l_parkes/(P-W_l_parkes));
+	    S_min_Swinburne = delta_beam * beta*sigma*(T_rec + Tb_sky)/G/sqrt(N_p*delta_nu*t_int_swinburne)*sqrt(W_l_swinburne/(P-W_l_swinburne));
+    }
+    else   {
+	    S_min_Parkes = 1e9;
+	    S_min_Swinburne = 1e9;
+    }
 
 
     if (abs(b*180./3.1415926) >= 5.) {

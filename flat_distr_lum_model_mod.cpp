@@ -17,7 +17,7 @@ double norm_distr();
 
 double LMFlat::is_pulsar_visible (double t, SpecialStar * sun, TMap * T_copy, double x, double y, double z, double i_incl, double P, double dot_P, float DM) {
     float l, b, sm;
-    double L, eps_P = -1.5, eps_dot_P = 0.5, L_corr=0.8, L_0 = 0.18e-3;
+    double L, eps_P = -1.5, eps_dot_P = 0.5, L_corr=0.8, L_0 = 0.5e-2;
     double dist_to_sun, lum_min, w50;
     double first[3], second[2];
 
@@ -52,14 +52,15 @@ double LMFlat::is_pulsar_visible (double t, SpecialStar * sun, TMap * T_copy, do
         l=360.+l;
     }
 
-    L=log10(L_0*pow(P, eps_P)*pow(dot_P/1e-15, eps_dot_P))+L_corr*norm_distr();
-    L = pow(10.0, L)/pow(dist_to_sun, 2.);
+    L=log(L_0*pow(P, eps_P)*pow(dot_P/1e-15, eps_dot_P))+L_corr*norm_distr();
+    L = pow(2.71828, L)/pow(dist_to_sun, 2.);
 
 
     if (dist_to_sun < 25 && abs(b) < 15 && (l<=50 || l>=230) && L>=5.e-6)  	{
         //	DM=15*dist_to_sun;
 //        DM = get_DM (t, sun, &l, &b, &sm);
         lum_min = S_min (l, b, sm, dist_to_sun, w50, P, DM, T_copy);
+	cout << "Actual luminosity is -- "<<L<<"\t , "<<dist_to_sun <<endl;
     } else {
         lum_min = 1e9;
     }
