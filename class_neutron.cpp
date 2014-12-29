@@ -89,6 +89,12 @@ NeutronStar::NeutronStar (double T, OBStar  * proteg, MFD * mfd, LM * lm, GD *p_
         v_z = -1e5*lcm/lsec*expon_vel(chance_1);
     }
 
+    //v_x =  proteg->get_velocity_x();
+    //v_y =  proteg->get_velocity_y();
+    //v_z =  proteg->get_velocity_z();
+
+
+
     B=b_init->generate_next();
     B=pow(10,B);
 

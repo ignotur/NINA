@@ -155,7 +155,28 @@ OBStar::OBStar (double T, SpecialStar * sun, RDF * rad_distr, bool spir_str) {
 
     //---------------------------------------------------------------
 
-    z = 0.050 * norm_distr ();
+    is_position_set = false;
+
+    do {
+        chance_1  = rand () / rand_high_board;
+        chance_1 *= 3.0;
+        s = exp( - chance_1 / 0.050);
+
+        chance_2  = rand () / rand_high_board;
+
+        if (chance_2 <= s) {
+            is_position_set = true;
+	    chance_2  = rand () / rand_high_board;
+		if (chance_2 < 0.5)
+			chance_1 *= -1.0;
+        }
+
+
+    } while (!(is_position_set));
+
+    z = chance_1;
+ 
+//    z = 0.050 * norm_distr ();
 
     // Генерация пространственных скоростей протегионов пульсаров
     // дисперсия во всех направлениях 15 км/сек из работы
