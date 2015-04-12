@@ -44,7 +44,7 @@ double MFDOldPons::get_P (double t, double B, double i_incl, double P) {
     diff_b = B - pointer_b[pos_b];
     extra_diff_b = 0;
     if (pos_b >= 74)	{
-        extra_diff_b = diff_b;
+        extra_diff_b = B / 1.5e13;
 	diff_b = 0;
     }
     diff_t = t - pointer_b[76*pos_t];
@@ -65,7 +65,7 @@ double MFDOldPons::get_P (double t, double B, double i_incl, double P) {
     if (extra_diff_b == 0)
 	    P_res = sqrt(P*P + diff_p + int_t*1000.0 * 3.2e7 * 1.6e-39 * pow(pointer_b[76*pos_t + pos_b], 2.0));
     else
-            P_res = sqrt(P*P + t*3.2e7*1.6e-39 * B*B);     
+            P_res = sqrt(P*P + diff_p*pow(extra_diff_b, 2.0));     
  
 //    cout << "B is "<< B << ", but we used " << pointer_b[pos_b] <<" and pos_b is "<< pos_b<<endl;
 //    cout << "Now B is "<< pointer_b[76*pos_t + pos_b] << ", or f(t) = "<< pointer_b[76*pos_t + pos_b] / pointer_b[pos_b]<<endl;
@@ -121,7 +121,7 @@ double MFDOldPons::get_B (double t, double B, double i_incl, double P) {
     diff_b = B - pointer_b[pos_b];
     extra_diff_b = 0;
     if (pos_b >= 74) {
-        extra_diff_b = diff_b;
+        extra_diff_b = B/1.5e13;
 	diff_b = 0;
     }
     diff_t = t - pointer_b[76*pos_t];
@@ -142,7 +142,7 @@ double MFDOldPons::get_B (double t, double B, double i_incl, double P) {
     if (extra_diff_b == 0)
 	    diff_p  = beta1 * (alpha1 * diff_p1 + (1 - alpha1) * diff_p2  )  + (1-beta1) * (alpha1 * diff_p3 + (1 - alpha1) * diff_p4);
     else
-            diff_p  = B;
+            diff_p  = extra_diff_b * (beta1 * diff_p1 + (1.0-beta1)*diff_p3);
 
     res_B = diff_p;
 //    res_B = pointer_b[76*pos_t + pos_b];
