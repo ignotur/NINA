@@ -17,7 +17,7 @@ double MFDOldPons::get_P (double t, double B, double i_incl, double P) {
     double P_res, I, tmp, beta, k1, k2, k3, fractpart, intpart;
     double h_yr, h_sec, sum, alpha, B_min, epart, tau_hall_part;
     double B_0, diff_p, diff_p1, diff_p2, diff_p3, diff_p4;
-    double B_diff, diff_t, alpha1, beta1, diff_b;
+    double B_diff, diff_t, alpha1, beta1, diff_b, extra_diff_b;
     double lin_approx_b;
     int pos_b, pos_t, int_t;    
 
@@ -25,8 +25,8 @@ double MFDOldPons::get_P (double t, double B, double i_incl, double P) {
 
     if (pos_b == 0)
 	pos_b = 1;
-    else if (pos_b > 75)
-        pos_b = 75;
+    else if (pos_b > 74)
+        pos_b = 74;
 
     pos_t = (int) t / 1000. - 1;
     int_t = 0; 
@@ -42,8 +42,11 @@ double MFDOldPons::get_P (double t, double B, double i_incl, double P) {
 //		cout << pointer_b[76*i]<<endl; 
 
     diff_b = B - pointer_b[pos_b];
-    if (pos_b == 75)
+    extra_diff_b = 0;
+    if (pos_b >= 74)	{
+        extra_diff_b = diff_b;
 	diff_b = 0;
+    }
     diff_t = t - pointer_b[76*pos_t];
     if (pos_t > 10000 - 6)
          diff_t = 0;
@@ -59,8 +62,10 @@ double MFDOldPons::get_P (double t, double B, double i_incl, double P) {
 
     diff_p  = beta1 * (alpha1 * diff_p1 + (1 - alpha1) * diff_p2  )  + (1-beta1) * (alpha1 * diff_p3 + (1 - alpha1) * diff_p4);
 
-    P_res = sqrt(P*P + diff_p + int_t*1000.0 * 3.2e7 * 1.6e-39 * pow(pointer_b[76*pos_t + pos_b], 2.0));
-
+    if (extra_diff_b == 0)
+	    P_res = sqrt(P*P + diff_p + int_t*1000.0 * 3.2e7 * 1.6e-39 * pow(pointer_b[76*pos_t + pos_b], 2.0));
+    else
+            P_res = sqrt(P*P + t*3.2e7*1.6e-39 * B*B);     
  
 //    cout << "B is "<< B << ", but we used " << pointer_b[pos_b] <<" and pos_b is "<< pos_b<<endl;
 //    cout << "Now B is "<< pointer_b[76*pos_t + pos_b] << ", or f(t) = "<< pointer_b[76*pos_t + pos_b] / pointer_b[pos_b]<<endl;
@@ -94,15 +99,15 @@ double MFDOldPons::get_dot_P (double t, double B, double i_incl, double P) {
 double MFDOldPons::get_B (double t, double B, double i_incl, double P) {
     double res_B, tau_hall_part, B_min, epart;
     int pos_b, pos_t, int_t;    
-    double diff_p1, diff_p2, diff_p3, diff_p4;
+    double diff_p1, diff_p2, diff_p3, diff_p4, extra_diff_b;
     double diff_p, diff_t, alpha1, beta1, diff_b;
 
     pos_b = 1 + (int) (B / 2.0e11);
 
     if (pos_b == 0)
 	pos_b = 1;
-    else if (pos_b > 75)
-        pos_b = 75;
+    else if (pos_b > 74) 
+        pos_b = 74;
 
     pos_t = (int) t / 1000. - 1;
  
@@ -114,8 +119,11 @@ double MFDOldPons::get_B (double t, double B, double i_incl, double P) {
     }
 
     diff_b = B - pointer_b[pos_b];
-    if (pos_b == 75)
+    extra_diff_b = 0;
+    if (pos_b >= 74) {
+        extra_diff_b = diff_b;
 	diff_b = 0;
+    }
     diff_t = t - pointer_b[76*pos_t];
 //cout << diff_t<<endl;
     if (diff_t > 1000)
@@ -131,7 +139,10 @@ double MFDOldPons::get_B (double t, double B, double i_incl, double P) {
     alpha1 = 1.0 - diff_b/2.0e11; 
     beta1  = 1.0 - diff_t/1000.0;
 
-    diff_p  = beta1 * (alpha1 * diff_p1 + (1 - alpha1) * diff_p2  )  + (1-beta1) * (alpha1 * diff_p3 + (1 - alpha1) * diff_p4);
+    if (extra_diff_b == 0)
+	    diff_p  = beta1 * (alpha1 * diff_p1 + (1 - alpha1) * diff_p2  )  + (1-beta1) * (alpha1 * diff_p3 + (1 - alpha1) * diff_p4);
+    else
+            diff_p  = B;
 
     res_B = diff_p;
 //    res_B = pointer_b[76*pos_t + pos_b];
