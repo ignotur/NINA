@@ -16,7 +16,9 @@ double min (double a, double b) {
 double MFDOldPons::get_P (double t, double B, double i_incl, double P) {
     double P_res, I, tmp, beta, k1, k2, k3, fractpart, intpart;
     double h_yr, h_sec, sum, alpha, B_min, epart, tau_hall_part;
-    double B_0, diff_p;
+    double B_0, diff_p, diff_p1, diff_p2, diff_p3, diff_p4;
+    double B_diff, diff_t, alpha1, beta1, diff_b;
+    double lin_approx_b;
     int pos_b, pos_t, int_t;    
 
     pos_b = 1 + (int) (B / 2.0e11);
@@ -39,7 +41,23 @@ double MFDOldPons::get_P (double t, double B, double i_incl, double P) {
 //	for ( int i=9000; i < 10000; i++)
 //		cout << pointer_b[76*i]<<endl; 
 
-    diff_p = pointer_delta[75 * pos_t + pos_b];
+    diff_b = B - pointer_b[pos_b];
+    if (pos_b == 75)
+	diff_b = 0;
+    diff_t = t - pointer_b[76*pos_t];
+    if (pos_t > 10000 - 6)
+         diff_t = 0;
+   
+
+    diff_p1 = pointer_delta[75 * pos_t + pos_b];
+    diff_p2 = pointer_delta[75 * pos_t + pos_b + 1];
+    diff_p3 = pointer_delta[75 * (pos_t + 1) + pos_b];
+    diff_p4 = pointer_delta[75 * (pos_t + 1) + pos_b + 1];
+ 
+    alpha1 = 1.0 - diff_b/2.0e11; 
+    beta1  = 1.0 - diff_t/1000.0;
+
+    diff_p  = beta1 * (alpha1 * diff_p1 + (1 - alpha1) * diff_p2  )  + (1-beta1) * (alpha1 * diff_p3 + (1 - alpha1) * diff_p4);
 
     P_res = sqrt(P*P + diff_p + int_t*1000.0 * 3.2e7 * 1.6e-39 * pow(pointer_b[76*pos_t + pos_b], 2.0));
 
@@ -76,6 +94,8 @@ double MFDOldPons::get_dot_P (double t, double B, double i_incl, double P) {
 double MFDOldPons::get_B (double t, double B, double i_incl, double P) {
     double res_B, tau_hall_part, B_min, epart;
     int pos_b, pos_t, int_t;    
+    double diff_p1, diff_p2, diff_p3, diff_p4;
+    double diff_p, diff_t, alpha1, beta1, diff_b;
 
     pos_b = 1 + (int) (B / 2.0e11);
 
@@ -93,8 +113,28 @@ double MFDOldPons::get_B (double t, double B, double i_incl, double P) {
         pos_t = 10000 - 6;
     }
 
+    diff_b = B - pointer_b[pos_b];
+    if (pos_b == 75)
+	diff_b = 0;
+    diff_t = t - pointer_b[76*pos_t];
+//cout << diff_t<<endl;
+    if (diff_t > 1000)
+         diff_t = 0;
+// cout << diff_t<<endl;
+  
 
-    res_B = pointer_b[76*pos_t + pos_b];
+    diff_p1 = pointer_b[76 * pos_t + pos_b];
+    diff_p2 = pointer_b[76 * pos_t + pos_b + 1];
+    diff_p3 = pointer_b[76 * (pos_t + 1) + pos_b];
+    diff_p4 = pointer_b[76 * (pos_t + 1) + pos_b + 1];
+ 
+    alpha1 = 1.0 - diff_b/2.0e11; 
+    beta1  = 1.0 - diff_t/1000.0;
+
+    diff_p  = beta1 * (alpha1 * diff_p1 + (1 - alpha1) * diff_p2  )  + (1-beta1) * (alpha1 * diff_p3 + (1 - alpha1) * diff_p4);
+
+    res_B = diff_p;
+//    res_B = pointer_b[76*pos_t + pos_b];
 
 
     return res_B;
