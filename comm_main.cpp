@@ -112,6 +112,8 @@ GD  * b_distr;
     decay_model = new MFDPons  (&param_decay);
     else if (decay == 'D')
     decay_model = new MFDExpon (&param_decay);
+    else if (decay == 'E')
+    decay_model = new MFDOldPons (&param_decay);
     else	{
     print_error_no_MFD(decay);
     return 6;

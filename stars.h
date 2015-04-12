@@ -247,6 +247,25 @@ double tau_ohm;
 };
 
 //--------------------------------------------------//
+// Child class for old Pons' magnetic field decay
+//--------------------------------------------------//
+
+class MFDOldPons : public MFD {
+public:
+MFDOldPons (vector <double> *);
+double get_P (double, double, double, double);
+double get_dot_P (double, double, double, double);
+double get_B (double, double, double, double); 
+double get_incl (double, double, double, double); 
+void print_description (ostream *);
+void print_parameters (ostream *); 
+private:
+double tau_ohm, tau_hall;
+double * pointer_b, * pointer_delta;
+};
+
+
+//--------------------------------------------------//
 // Parent class for model of luminosity 
 //--------------------------------------------------//
 class LM {

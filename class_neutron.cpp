@@ -46,7 +46,10 @@ NeutronStar::NeutronStar (double T, OBStar  * proteg, MFD * mfd, LM * lm, GD *p_
     //-----------------------------------------------------------
 
     // Generate initial period of pulsar
+    do {
+
     P = p_init->generate_next();
+    } while (P < 0);
 
     // The initial position of the NS is the same as massive star had
     x = proteg->get_position_x();
@@ -54,9 +57,7 @@ NeutronStar::NeutronStar (double T, OBStar  * proteg, MFD * mfd, LM * lm, GD *p_
     z = proteg->get_position_z();
 
     //-------------------------------------------------------------
-    // The birthkick is introducting
-    // распределённый случайным образом с плотностью вероятности
-    // распределённой по нормальному закону
+    // The birthkick is introduced here
     double is_velocity_set;
 
     chance_1 = rand () / rand_high_board;
@@ -64,9 +65,9 @@ NeutronStar::NeutronStar (double T, OBStar  * proteg, MFD * mfd, LM * lm, GD *p_
     chance_2 = rand () / rand_high_board;
 
     if (chance_2 > 0.5) {
-        v_x = 1e5*lcm/lsec*expon_vel(chance_1);
+        v_x = 130.0*1e5*lcm/lsec*norm_distr();
     } else {
-        v_x = -1e5*lcm/lsec*expon_vel(chance_1);
+        v_x = -130.0*1e5*lcm/lsec*norm_distr();
     }
 
     chance_1 = rand () / rand_high_board;
@@ -74,9 +75,9 @@ NeutronStar::NeutronStar (double T, OBStar  * proteg, MFD * mfd, LM * lm, GD *p_
     chance_2 = rand () / rand_high_board;
 
     if (chance_2 > 0.5) {
-        v_y = 1e5*lcm/lsec*expon_vel(chance_1);
+        v_y = 130.0*1e5*lcm/lsec*norm_distr();
     } else {
-        v_y = -1e5*lcm/lsec*expon_vel(chance_1);
+        v_y = -130.0*1e5*lcm/lsec*norm_distr();
     }
 
     chance_1 = rand () / rand_high_board;
@@ -84,9 +85,9 @@ NeutronStar::NeutronStar (double T, OBStar  * proteg, MFD * mfd, LM * lm, GD *p_
     chance_2 = rand () / rand_high_board;
 
     if (chance_2 > 0.5) {
-        v_z = 1e5*lcm/lsec*expon_vel(chance_1);
+        v_z = 60.0*1e5*lcm/lsec*norm_distr();
     } else {
-        v_z = -1e5*lcm/lsec*expon_vel(chance_1);
+        v_z = -60.0*1e5*lcm/lsec*norm_distr();
     }
 
     //v_x =  proteg->get_velocity_x();
@@ -371,6 +372,7 @@ bool NeutronStar::is_pulsar_alive(double t) {
 
 
 
+    return true;
 
     if (get_B(t)/pow(get_P(t), 2.)>0.12e12) {
         return true;
