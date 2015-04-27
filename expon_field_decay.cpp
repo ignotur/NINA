@@ -7,7 +7,7 @@ double MFDExpon::get_B (double t, double B, double i_incl, double P) {
 
 //    t = t - tau;
 
-    res = B*A_1*(exp(-t/tau_ohm) + A_2/A_1);
+    res = B*(exp(-t/tau_ohm);
 
     return res;
 }
@@ -20,9 +20,12 @@ double MFDExpon::get_P(double t, double B, double i_incl, double P) {
     //double res, I, t_tmp, A_1 = 0.85766, A_2 = 0.14234;
     double res, I, t_tmp, A_1 = 0.65, A_2 = 0.35;
 
-      I = 1e45;
+    res = sqrt(P*P + 1.6e-39 * B*B * 3.156e7 * tau_ohm * (1.0 - exp(-2.0 * t / tau_ohm)));
 
-    res = sqrt(P*P+16.*pi*pi*pow(1e6,6)*B*B*A_1*A_1/3./pow(light_velocity, 3)/I*(3.156e7*tau_ohm/2.*(1-exp(-2.*t/tau_ohm))+2*3.156e7*tau_ohm*A_2/A_1*(1-exp(-t/tau_ohm)) + 3.156e7*pow(A_2/A_1, 2)*t));
+
+//      I = 1e45;
+
+//    res = sqrt(P*P+16.*pi*pi*pow(1e6,6)*B*B*A_1*A_1/3./pow(light_velocity, 3)/I*(3.156e7*tau_ohm/2.*(1-exp(-2.*t/tau_ohm))+2*3.156e7*tau_ohm*A_2/A_1*(1-exp(-t/tau_ohm)) + 3.156e7*pow(A_2/A_1, 2)*t));
 
     return res;
 }
@@ -31,7 +34,7 @@ double MFDExpon::get_dot_P (double t, double B, double i_incl, double P) {
     double res, I;
     I = 1e45;
     
-    res = pow(get_B(t, B, i_incl, P)/3.2e19, 2.)/get_P(t, B, i_incl, P);
+    res = 1.6e-39 * pow(get_B(t, B, i_incl, P), 2.)/get_P(t, B, i_incl, P);
 
     return res;
 }
