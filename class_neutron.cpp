@@ -594,17 +594,26 @@ double NeutronStar::get_dist_to_sun(double t, SpecialStar * sun)	{
 
 //---------------------------------------------------------------//
 // Получение меры дисперсии для данного наблюения пульсара,
-// используется код NE2001
+// используется код NE2001 (obsolate)
 //---------------------------------------------------------------//
 
-extern "C" {
-    void dmdsm_ (float *l, float *b, int *ndir, float *dmpsr, float *dist, char *limit, float *sm, float *smtau, float *smtheta, float *smiso);
-}
+//extern "C" {
+//    void dmdsm_ (float *l, float *b, int *ndir, float *dmpsr, float *dist, char *limit, float *sm, float *smtau, float *smtheta, float *smiso);
+//}
 
+//---------------------------------------------------------------//
+// Получение меры дисперсии для данного наблюения пульсара,
+// используется код ymw16 (11-03-2017)
+//---------------------------------------------------------------//
+extern "C" {
+    double d_to_dm (double, double, double);
+}
 
 double NeutronStar::get_DM (double t, SpecialStar * sun, float *l, float *b, float *sm) {
     double x_sun, y_sun, z_sun;
+    double gl, gb;
     float dist, dmpsr;
+    double dmpsr1, dist1;
     //float l, b;
     double SP[3], SC[3]; // SP вектор пульср - солнце, SC - вектор солнце - центр Галактики
 
@@ -632,6 +641,16 @@ double NeutronStar::get_DM (double t, SpecialStar * sun, float *l, float *b, flo
 
     *b = asin (SP[2]/dist);
 
+    gl = *l;
+    gb = *b;
+    dist1 = dist;
+
+    //cout << "TEST: gl, gb, dist: "<< gl << "\t" << gb << "\t"<< dist << endl;
+    //cout << "TEST, TEST, TEST: "<< d_to_dm (0.0, 0.0, 500.0) << endl;
+    gl = gl*180.0/M_PI;
+    gb = gb*180.0/M_PI;
+    dist1 = dist * 1000.0;
+    
     int ndir = -5;
 
     float /*sm, */ smtau, smtheta, smiso;
@@ -641,7 +660,17 @@ double NeutronStar::get_DM (double t, SpecialStar * sun, float *l, float *b, flo
 
     //cout<<*l<<"\t"<<*b<<"\t"<<dist<<endl;
 
-    dmdsm_ (l, b, &ndir, &dmpsr, &dist, &limit, sm, &smtau, &smtheta, &smiso);
+    //dmdsm_ (l, b, &ndir, &dmpsr, &dist, &limit, sm, &smtau, &smtheta, &smiso);
+    //cout << "TEST: gl, gb, dist: "<< gl << "\t" << gb << "\t"<< dist1 << endl;
+
+    dmpsr1 = d_to_dm (gl, gb, dist1);
+    //dmpsr1 = 50.0;
+
+    //cout << gl*180.0/M_PI <<"\t"<< gb*180.0/M_PI <<"\t" << dist << "\t" << dmpsr << endl;
+    //cout << gl << "\t" << gb << "\t" << dist1 << "\t" << dmpsr1<<endl;
+
+
+    //exit(0);
 
     return dmpsr;
 }

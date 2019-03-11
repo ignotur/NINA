@@ -31,7 +31,12 @@ list_IV    = expon_field_decay.cpp
 #list_V     = two_comp_field_decay.cpp
 list_V     = two_comp_field_decay_mod.cpp
 keys = 
-main:         ./ne2001_f/libNE2001.a 	$(list_mono) $(list_C) $(list_I)
-		g++  -O3 $(list_mono) -o population.out  -L./ne2001_f/ -lNE2001 -L/opt/local/lib/ -lf95 -I/opt/local/include -L/opt/local/lib -lgsl -lgslcblas -lm $(keys)
+main:  	$(list_mono) $(list_C) $(list_I)
+		cp ymw16_v1.2.2/libymw16.so .
+		g++ -std=c++11 -O3 $(list_mono) -o population.out  -L./ymw16_v1.2.2/ -lymw16  -I/opt/local/include -L/opt/local/lib -lgsl -lgslcblas -lm $(keys)
 ./ne2001_f/libNE2001.a: 
 		cd ne2001_f/; make
+old_ne2001:         ./ne2001_f/libNE2001.a 	$(list_mono) $(list_C) $(list_I)
+		g++  -O3 $(list_mono) -o population.out  -L./ne2001_f/ -lNE2001 -L/opt/local/lib/ -lf95 -I/opt/local/include -L/opt/local/lib -lgsl -lgslcblas -lm $(keys)
+tar:
+		tar cvzf all_files.tar.gz  $(list_mono) $(list_C) $(list_I)  $(list_para)  $(list_II) $(list_III) $(list_IV)  $(list_V) 

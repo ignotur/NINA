@@ -29,7 +29,7 @@
 	0.70 test  файл puls_popul_0.70_testing_05082011.rar - полностью изменена разбивка на файлы, появились классы пользовательских параметров моделей, протестирован интегратор, два солнца, протестированы функции согласно отчёту о тестированию пульсарной популяции, однако окончательные тесты ещё не выполнены.
         0.75 alpha файл puls_popul_0.75_23112011.rar - распаралеливание, точное повторение Faucher-Giguere
 	0.80 alpha файл puls_popul_0.80_31102012.rar - новый интегратор Runge-Kutta-Fehlberg, исправлен слишком долгий расчёт DM, добавлено две модели убывания поля, попытка повторить Parker and Swinburne обзоры
-
+        0.83 alpha файл puls_popul_0.83_12032017.rar - новая модель электронной плотности ymw16
 
 2) Версия 1.0 - после окончательной отладки
 3) Версия 2.0 - с ренгеновской светимостью
@@ -65,7 +65,7 @@ The classes have the same numbers as packet
 	0.70 test  file puls_popul_0.70_testing_05082011.rar - the way putting function in the files was changed, user's model parametrs classes were added, the integrator was tested, two suns, the functions out of report about testing of the pulsar population were tested, however final test haven't been done.
         0.75 alpha file puls_popul_0.75_23112011.rar - parrallel, accurate reproduction of Faucher-Giguere
 	0.80 alpha file puls_popul_0.80_31102012.rar - new integrator Runge-Kutta-Fehlberg, fixed too long calculations of DM, two models of magnetic fields decay are added, trying to reproduce Parker and Swinburne surweys.
-
+	0.83 alpha file puls_popul_0.83_12032017.rar - new electron density model ymw16
 
 2) Version 1.0 - after final correction
 3) Version 2.0 - with X-ray luminosity model

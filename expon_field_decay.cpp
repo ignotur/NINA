@@ -7,7 +7,7 @@ double MFDExpon::get_B (double t, double B, double i_incl, double P) {
 
 //    t = t - tau;
 
-    res = B*(exp(-t/tau_ohm);
+    res = B*(exp(-t/tau_ohm));
 
     return res;
 }

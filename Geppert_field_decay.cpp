@@ -39,10 +39,7 @@ double MFDPons::get_incl (double t, double B, double i_incl, double P) {
 // циального уравнения
 double MFDPons::get_dot_P (double t, double B, double i_incl, double P) {
     double res, I;
-//    alpha   = paramet_B->get_alpha();
-//    tau_ohm = paramet_B->get_tau_ohm();
-//    t = t - tau;
-//    I = 2./5. * M*M_sol*pow(R,2);
+    
     I=1e45;
     double tau_mu = 3.*pow(light_velocity,3)*I/2./pow(B,2)/pow(1e6,6);
 
