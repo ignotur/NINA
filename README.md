@@ -58,3 +58,5 @@ The population synthesis code allows to use following flags
       file/s with information about pulsars missed in survey.  
       (This option may cause much longer computations)   
 ```
+
+The simplest way to ran complete population synthesis is to use `./population.out -f`. 
