@@ -1,4 +1,4 @@
-NINA
+NINA code
 ====
 
 Nova Investigii Neutronicorum Astrorum
@@ -13,9 +13,12 @@ The population synthesis code is mostly based on Faucher-Giguere & Kaspi (2006) 
 
 The code requires GSL to be compiled.
 
-The code needs to be compiled as following:
+## Compilation
 
+The code needs to be compiled as following:
+'''
 cd ymw16_v1.2.2
 make
 cd ../
 make
+'''
