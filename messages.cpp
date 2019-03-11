@@ -11,7 +11,7 @@ void print_head (ostream * out)	{
 *out<<"#// Population synthesis code. Version "<<version()<<" (see  //"<<endl;
 *out<<"#// the version agreement)                                   //"<<endl;
 *out<<"#// Author: Andrei Igoshev.                                  //"<<endl;
-*out<<"#// e-mail: ignotur@gmail.com, 2010-2017                     //"<<endl;
+*out<<"#// e-mail: ignotur@gmail.com, 2010-2019                     //"<<endl;
 *out<<"#//----------------------------------------------------------//"<<endl;
 }
 
