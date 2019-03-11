@@ -6,4 +6,6 @@ libname=-o libymw16.so
 main: 
 		${comp} ${flags} ${files} ${libname}
 		g++  test.cpp -L./ -lymw16
-#		${comp} ${flags} lib_simpl.c ${libname} 
+#		${comp} ${flags} lib_simpl.c ${libname}
+clean:
+		rm *.so 

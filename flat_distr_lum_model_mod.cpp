@@ -60,7 +60,7 @@ double LMFlat::is_pulsar_visible (double t, SpecialStar * sun, TMap * T_copy, do
         //	DM=15*dist_to_sun;
 //        DM = get_DM (t, sun, &l, &b, &sm);
         lum_min = S_min (l, b, sm, dist_to_sun, w50, P, DM, T_copy);
-	cout << "Actual luminosity is -- "<<L<<"\t , "<<dist_to_sun <<endl;
+	//cout << "Actual luminosity is -- "<<L<<"\t , "<<dist_to_sun <<endl;
     } else {
         lum_min = 1e9;
     }

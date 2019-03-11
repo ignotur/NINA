@@ -545,8 +545,8 @@ double d_to_dm (double gl, double gb, double dordm)
           }
           tau_sc=tsc(dmpsr);
           tau_MC_sc=max(tau_Gal, tau_MC);
-          if(np==0)printf(" DM:%8.2f log(tau_sc):%7.3f %s\n", dmpsr,log10(tau_MC_sc),text);
-          if(np==1)printf(" DM:%8.2f log(tau_sc):%7.3f %s\n", dmpsr, log10(tau_sc),text);
+          //if(np==0)printf(" DM:%8.2f log(tau_sc):%7.3f %s\n", dmpsr,log10(tau_MC_sc),text);
+          //if(np==1)printf(" DM:%8.2f log(tau_sc):%7.3f %s\n", dmpsr, log10(tau_sc),text);
         }
 	
 	if(i==nk&&np==-1){

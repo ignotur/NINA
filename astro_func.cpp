@@ -150,7 +150,7 @@ double S_min (double l, double b, float sm, double dist, double w, double P, flo
     }
 
 
-    cout << "S_min_Parkes -- "<<S_min_Parkes << ", S_min_Swinburne -- "<<S_min_Swinburne << endl;
+//    cout << "S_min_Parkes -- "<<S_min_Parkes << ", S_min_Swinburne -- "<<S_min_Swinburne << endl;
     if (isnan(S_min_Parkes))	{
 	cout << "Debugging -- " << P - W_l_parkes << "\t" << P << "\t" << w << "\t" <<sqrt(tau_scatt*tau_scatt)<<endl; 
 	cout << "DM -- "<<DM<<endl;

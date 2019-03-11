@@ -666,11 +666,13 @@ double NeutronStar::get_DM (double t, SpecialStar * sun, float *l, float *b, flo
     dmpsr1 = d_to_dm (gl, gb, dist1);
     //dmpsr1 = 50.0;
 
+    //cout << "Test position: "<<dmpsr1 << "\t" << dmpsr << endl;
+
     //cout << gl*180.0/M_PI <<"\t"<< gb*180.0/M_PI <<"\t" << dist << "\t" << dmpsr << endl;
     //cout << gl << "\t" << gb << "\t" << dist1 << "\t" << dmpsr1<<endl;
 
 
     //exit(0);
 
-    return dmpsr;
+    return dmpsr1;
 }
