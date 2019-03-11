@@ -60,4 +60,17 @@ The population synthesis code allows to use following flags
       (This option may cause much longer computations)   
 ```
 
-The simplest way to ran complete population synthesis is to use `./population.out -f`. 
+The simplest way to ran complete population synthesis is to use `./population.out -f`.
+
+
+## Troubleshooting
+
+If the population synthesis code cannot be ran because the library libymw16.so is not found,
+it is recommended to add the local folder to the variable `LD_LIBRARY_PATH` for example as:
+```
+export LD_LIBRARY_PATH=.
+```
+
+The compilation of the electron density library requires different flags for Linux, namely the
+line `flags= -dynamiclib -flat_namespace -O3` in makefile should be replaced with `flags=  -fPIC -shared -O3`
+ 
