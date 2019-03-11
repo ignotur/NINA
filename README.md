@@ -16,9 +16,9 @@ The code requires GSL to be compiled.
 ## Compilation
 
 The code needs to be compiled as following:
-'''
+```
 cd ymw16_v1.2.2
 make
 cd ../
 make
-'''
+```
