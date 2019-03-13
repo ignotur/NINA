@@ -57,9 +57,25 @@ NeutronStar::NeutronStar (double T, OBStar  * proteg, MFD * mfd, LM * lm, GD *p_
     z = proteg->get_position_z();
 
     //-------------------------------------------------------------
-    // The birthkick is introduced here
+    // Here the natal kick is imparted 
+    // The values and prescription for the natal kick is from the article by Verbunt, Igoshev & Cator (2017)
     double is_velocity_set;
 
+    chance_1 = rand () / rand_high_board;
+    
+    if (chance_1 < 0.42) {
+
+	v_x = 75.0*1e5*lcm/lsec*norm_distr();	
+ 	v_y = 75.0*1e5*lcm/lsec*norm_distr();	
+	v_z = 75.0*1e5*lcm/lsec*norm_distr();	
+    }
+    else {
+        v_x = 316.0*1e5*lcm/lsec*norm_distr();   
+        v_y = 316.0*1e5*lcm/lsec*norm_distr();
+        v_z = 316.0*1e5*lcm/lsec*norm_distr();
+    }
+
+    /*	
     chance_1 = rand () / rand_high_board;
     chance_1/= 360.;
     chance_2 = rand () / rand_high_board;
@@ -89,7 +105,7 @@ NeutronStar::NeutronStar (double T, OBStar  * proteg, MFD * mfd, LM * lm, GD *p_
     } else {
         v_z = -60.0*1e5*lcm/lsec*norm_distr();
     }
-
+    */ 
     //v_x =  proteg->get_velocity_x();
     //v_y =  proteg->get_velocity_y();
     //v_z =  proteg->get_velocity_z();
