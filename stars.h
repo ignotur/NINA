@@ -419,6 +419,8 @@ public:
     double get_velocity_x ();
     double get_velocity_y ();
     double get_velocity_z ();
+    double get_gl (double, SpecialStar *);
+    double get_gb (double, SpecialStar *);
     double get_dist_to_sun(double, SpecialStar *);
     void   move_to  (double);
     double get_B    (double/*, parametrs_B **/);

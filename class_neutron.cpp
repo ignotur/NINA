@@ -608,6 +608,61 @@ double NeutronStar::get_dist_to_sun(double t, SpecialStar * sun)	{
     return res;
 }
 
+double NeutronStar::get_gl(double t, SpecialStar * sun)	{
+    double res, l;
+    double x_sun, y_sun, z_sun;
+    double SP[3], SC[3]; // SP вектор пульср - солнце, SC - вектор солнце - центр Галактики
+
+    sun->move_to(t);
+
+    x_sun = sun->get_position_x();
+    y_sun = sun->get_position_y();
+    z_sun = sun->get_position_z();
+
+    res = sqrt(pow(x - x_sun, 2) + pow(y - y_sun, 2) + pow(z - z_sun, 2));
+
+    SP [0] = x - x_sun;
+    SP [1] = y - y_sun;
+    SP [2] = z - z_sun;
+
+    SC [0] = - x_sun;
+    SC [1] = - y_sun;
+    SC [2] = - z_sun;
+
+    l = acos ((SP[0]*SC[0]+SP[1]*SC[1]) / sqrt(SC[0]*SC[0] + SC[1]*SC[1]) / sqrt(SP[0]*SP[0] + SP[1]*SP[1]));
+
+    if ((SP[0]*sun->get_velocity_x() + SP[1]*sun->get_velocity_y()) < 0) {
+        l = 2*pi - l;
+    }
+    	
+    return l*180.0/M_PI;
+}
+
+double NeutronStar::get_gb(double t, SpecialStar * sun)	{
+    double res, b;
+    double x_sun, y_sun, z_sun;
+    double SP[3], SC[3]; // SP вектор пульср - солнце, SC - вектор солнце - центр Галактики
+
+    sun->move_to(t);
+
+    x_sun = sun->get_position_x();
+    y_sun = sun->get_position_y();
+    z_sun = sun->get_position_z();
+
+    res = sqrt(pow(x - x_sun, 2) + pow(y - y_sun, 2) + pow(z - z_sun, 2));
+
+    SP [0] = x - x_sun;
+    SP [1] = y - y_sun;
+    SP [2] = z - z_sun;
+
+    SC [0] = - x_sun;
+    SC [1] = - y_sun;
+    SC [2] = - z_sun;
+    	
+    b = asin (SP[2]/res);
+
+    return b * 180.0 / M_PI;
+}
 //---------------------------------------------------------------//
 // Получение меры дисперсии для данного наблюения пульсара,
 // используется код NE2001 (obsolate)

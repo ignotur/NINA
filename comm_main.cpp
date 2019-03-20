@@ -55,6 +55,7 @@ bool arms;
 char star_distr, init_distr_p, init_distr_f, lum_model, decay;
 vector <double> param_p, param_f, list_lum, param_decay;
 double time_of_run, birthrate;
+double gl, gb;
 
 cout<<"param_file is "<<param_file<<endl;
 
@@ -325,7 +326,7 @@ else if (type_of_run == 5)	{
 	out_res_lum << "# Lum at 1400 MHz (mJy kpc^2)"<<endl;
    }
    else
-	out_res << "# P (s) \t dotP (s/s) \t x (kpc) \t y (kpc) \t z (kpc) \t v_x (km/s) \t v_y (km/s)\t v_z (km/s) \t Lum at 1400 MHz (mJy kpc^2)"<<endl;
+	out_res << "# P (s) \t dotP (s/s) \t x (kpc) \t y (kpc) \t z (kpc) \t v_x (km/s) \t v_y (km/s)\t v_z (km/s) \t Lum at 1400 MHz (mJy kpc^2) \t B (G) \t t (years) \t gl (deg) \t gb (deg) \t D (kpc)"<<endl;
 
 cout<<"#Read file: "<<read_file<<endl;
 
@@ -381,6 +382,8 @@ int shet_i = 0;
                         dot_P = descendant->get_dot_P(now);
                         B     = descendant->get_B (now);
                         dist_to_sun = descendant->get_dist_to_sun(now, &sun_nowaday);
+			gl    = descendant->get_gl (now,&sun_nowaday);
+			gb    = descendant->get_gb (now,&sun_nowaday);
 
 			if (ext_print)	{
         	                out_res_p  << P <<"\t"<< dot_P<<endl;
@@ -391,7 +394,8 @@ int shet_i = 0;
 			else {
         	                out_res << P <<"\t"<< dot_P<<"\t";
 	                        out_res << x << "\t" << y <<"\t"<< z <<"\t"<<v_x<<"\t"<<v_y<<"\t"<<v_z<<"\t";
-	                        out_res <<lumin*1000*pow(dist_to_sun, 2)<<endl;
+	                        out_res <<lumin*1000*pow(dist_to_sun, 2)<<"\t";
+                                out_res <<B<<"\t"<<t1-t2<<"\t"<<gl<<"\t"<<gb<<"\t"<<dist_to_sun<<endl;
 			}
 
                         if (B > 1e14) {
@@ -409,6 +413,8 @@ int shet_i = 0;
 			dot_P = descendant->get_dot_P(now);
 			B     = descendant->get_B (now);
 			dist_to_sun = descendant->get_dist_to_sun(now, &sun_nowaday);
+                        gl    = descendant->get_gl (now,&sun_nowaday);
+                        gb    = descendant->get_gb (now,&sun_nowaday);
 
 				if (ext_print)	{
 			        out_res_p_hid  << P <<"\t"<< dot_P<<endl;
@@ -418,7 +424,8 @@ int shet_i = 0;
 				else {
 			        out_res_hid << P <<"\t"<< dot_P<<"\t";
 	                        out_res_hid << x << "\t" << y <<"\t"<< z <<"\t"<< v_x<<"\t"<<v_y<<"\t"<<v_z<<"\t";
-	                        out_res_hid <<lumin*1000*pow(dist_to_sun, 2)<<endl;
+	                        out_res_hid <<lumin*1000*pow(dist_to_sun, 2)<<"\t";
+				out_res_hid <<B<<"\t"<<t1-t2<<"\t"<<gl<<"\t"<<gb<<"\t"<<dist_to_sun<<endl;
 				}
 			}
 
@@ -443,7 +450,7 @@ else if (type_of_run == 2) {
 	out_res_lum << "# Lum at 1400 MHz (mJy kpc^2)"<<endl;
    }
    else
-	out_res << "# P (s) \t dotP (s/s) \t x (kpc) \t y (kpc) \t z (kpc) \t v_x (km/s) \t v_y (km/s)\t v_z (km/s) \t Lum at 1400 MHz (mJy kpc^2)"<<endl;
+	out_res << "# P (s) \t dotP (s/s) \t x (kpc) \t y (kpc) \t z (kpc) \t v_x (km/s) \t v_y (km/s)\t v_z (km/s) \t Lum at 1400 MHz (mJy kpc^2) \t B (G) \t t (years) \t gl (deg) \t gb (deg) \t D (kpc)"<<endl;
 
 	for (int i = 0; i < number_millenium; i++)		{
 		sun.move_to(T);
@@ -484,6 +491,8 @@ else if (type_of_run == 2) {
 						dot_P = descendant->get_dot_P(now);
 						B     = descendant->get_B (now);
 						dist_to_sun = descendant->get_dist_to_sun(now, &sun_nowaday);
+						gl    = descendant->get_gl (now,&sun_nowaday);
+			                        gb    = descendant->get_gb (now,&sun_nowaday);
 
 						if (ext_print)	{
         	        			        out_res_p  << P <<"\t"<< dot_P<<endl;
@@ -494,7 +503,8 @@ else if (type_of_run == 2) {
 						else {
         	        			        out_res << P <<"\t"<< dot_P<<"\t";
 				                        out_res << x << "\t" << y <<"\t"<< z <<"\t"<< v_x<<"\t"<<v_y<<"\t"<<v_z<<"\t";
-				                        out_res <<lumin*1000*pow(dist_to_sun, 2)<<endl;
+				                        out_res <<lumin*1000*pow(dist_to_sun, 2)<<"\t";
+							out_res <<B<<"\t"<<T + shift + rand_shift<<"\t"<<gl<<"\t"<<gb<<"\t"<<dist_to_sun<<endl;
 						}
 
 						if (B > 1e14)
@@ -511,6 +521,8 @@ else if (type_of_run == 2) {
 						dot_P = descendant->get_dot_P(now);
 						B     = descendant->get_B (now);
 						dist_to_sun = descendant->get_dist_to_sun(now, &sun_nowaday);
+						gl    = descendant->get_gl (now,&sun_nowaday);
+			                        gb    = descendant->get_gb (now,&sun_nowaday);
 
 							if (ext_print)	{
         	        			        out_res_p_hid  << P <<"\t"<< dot_P<<endl;
@@ -521,7 +533,8 @@ else if (type_of_run == 2) {
 							else {
         	        			        out_res_hid << P <<"\t"<< dot_P<<"\t";
 				                        out_res_hid << x << "\t" << y <<"\t"<< z <<"\t"<< v_x<<"\t"<<v_y<<"\t"<<v_z<<"\t";
-				                        out_res_hid <<lumin*1000*pow(dist_to_sun, 2)<<endl;
+				                        out_res_hid <<lumin*1000*pow(dist_to_sun, 2)<<"\t";
+							out_res_hid <<B<<"\t"<<T + shift + rand_shift<<"\t"<<gl<<"\t"<<gb<<"\t"<<dist_to_sun<<endl;
 							}
 						}
 						
