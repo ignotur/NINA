@@ -247,6 +247,7 @@ char file_res_hid[40];
     double now = 0, shift;
     double P, dot_P, x, y, z, v_x, v_y, v_z, B, m, t1, t2;
     double dist_to_sun, lumin;
+    double P0, B0;
     double x_ances, y_ances, z_ances;
     int counter = 0;
     int rand_shift;                 // случайное время рождения внутри тысячелетия
@@ -326,7 +327,7 @@ else if (type_of_run == 5)	{
 	out_res_lum << "# Lum at 1400 MHz (mJy kpc^2)"<<endl;
    }
    else
-	out_res << "# P (s) \t dotP (s/s) \t x (kpc) \t y (kpc) \t z (kpc) \t v_x (km/s) \t v_y (km/s)\t v_z (km/s) \t Lum at 1400 MHz (mJy kpc^2) \t B (G) \t t (years) \t gl (deg) \t gb (deg) \t D (kpc)"<<endl;
+	out_res << "# P (s) \t dotP (s/s) \t x (kpc) \t y (kpc) \t z (kpc) \t v_x (km/s) \t v_y (km/s)\t v_z (km/s) \t Lum at 1400 MHz (mJy kpc^2) \t B (G) \t t (years) \t gl (deg) \t gb (deg) \t D (kpc) \t P0 (s) \t B0 (G)"<<endl;
 
 cout<<"#Read file: "<<read_file<<endl;
 
@@ -378,6 +379,8 @@ int shet_i = 0;
                         v_x   = descendant->get_velocity_x();
                         v_y   = descendant->get_velocity_y();
                         v_z   = descendant->get_velocity_z();
+ 			P0    = descendant->get_init_P();
+			B0    = descendant->get_init_B(); 
                         P     = descendant->get_P(now);
                         dot_P = descendant->get_dot_P(now);
                         B     = descendant->get_B (now);
@@ -395,7 +398,7 @@ int shet_i = 0;
         	                out_res << P <<"\t"<< dot_P<<"\t";
 	                        out_res << x << "\t" << y <<"\t"<< z <<"\t"<<v_x<<"\t"<<v_y<<"\t"<<v_z<<"\t";
 	                        out_res <<lumin*1000*pow(dist_to_sun, 2)<<"\t";
-                                out_res <<B<<"\t"<<t1-t2<<"\t"<<gl<<"\t"<<gb<<"\t"<<dist_to_sun<<endl;
+                                out_res <<B<<"\t"<<t1-t2<<"\t"<<gl<<"\t"<<gb<<"\t"<<dist_to_sun<<"\t"<<P0<<"\t"<<B0<<endl;
 			}
 
                         if (B > 1e14) {
@@ -409,6 +412,8 @@ int shet_i = 0;
 			v_x   = descendant->get_velocity_x();					
 			v_y   = descendant->get_velocity_y();
 			v_z   = descendant->get_velocity_z();
+			P0    = descendant->get_init_P();
+			B0    = descendant->get_init_B(); 
 			P     = descendant->get_P(now);
 			dot_P = descendant->get_dot_P(now);
 			B     = descendant->get_B (now);
@@ -425,7 +430,7 @@ int shet_i = 0;
 			        out_res_hid << P <<"\t"<< dot_P<<"\t";
 	                        out_res_hid << x << "\t" << y <<"\t"<< z <<"\t"<< v_x<<"\t"<<v_y<<"\t"<<v_z<<"\t";
 	                        out_res_hid <<lumin*1000*pow(dist_to_sun, 2)<<"\t";
-				out_res_hid <<B<<"\t"<<t1-t2<<"\t"<<gl<<"\t"<<gb<<"\t"<<dist_to_sun<<endl;
+				out_res_hid <<B<<"\t"<<t1-t2<<"\t"<<gl<<"\t"<<gb<<"\t"<<dist_to_sun<<"\t"<<P0<<"\t"<<B0<<endl;
 				}
 			}
 
@@ -450,7 +455,7 @@ else if (type_of_run == 2) {
 	out_res_lum << "# Lum at 1400 MHz (mJy kpc^2)"<<endl;
    }
    else
-	out_res << "# P (s) \t dotP (s/s) \t x (kpc) \t y (kpc) \t z (kpc) \t v_x (km/s) \t v_y (km/s)\t v_z (km/s) \t Lum at 1400 MHz (mJy kpc^2) \t B (G) \t t (years) \t gl (deg) \t gb (deg) \t D (kpc)"<<endl;
+	out_res << "# P (s) \t dotP (s/s) \t x (kpc) \t y (kpc) \t z (kpc) \t v_x (km/s) \t v_y (km/s)\t v_z (km/s) \t Lum at 1400 MHz (mJy kpc^2) \t B (G) \t t (years) \t gl (deg) \t gb (deg) \t D (kpc) \t P0 (s) \t B0 (G)"<<endl;
 
 	for (int i = 0; i < number_millenium; i++)		{
 		sun.move_to(T);
@@ -487,6 +492,8 @@ else if (type_of_run == 2) {
 						v_x   = descendant->get_velocity_x();					
 						v_y   = descendant->get_velocity_y();
 						v_z   = descendant->get_velocity_z();
+			                        P0    = descendant->get_init_P();
+			                        B0    = descendant->get_init_B(); 
 						P     = descendant->get_P(now);
 						dot_P = descendant->get_dot_P(now);
 						B     = descendant->get_B (now);
@@ -504,7 +511,7 @@ else if (type_of_run == 2) {
         	        			        out_res << P <<"\t"<< dot_P<<"\t";
 				                        out_res << x << "\t" << y <<"\t"<< z <<"\t"<< v_x<<"\t"<<v_y<<"\t"<<v_z<<"\t";
 				                        out_res <<lumin*1000*pow(dist_to_sun, 2)<<"\t";
-							out_res <<B<<"\t"<<T + shift + rand_shift<<"\t"<<gl<<"\t"<<gb<<"\t"<<dist_to_sun<<endl;
+							out_res <<B<<"\t"<<T + shift + rand_shift<<"\t"<<gl<<"\t"<<gb<<"\t"<<dist_to_sun<<"\t"<<P0<<"\t"<<B0<<endl;
 						}
 
 						if (B > 1e14)
@@ -516,7 +523,9 @@ else if (type_of_run == 2) {
 						z     = descendant->get_position_z();
 						v_x   = descendant->get_velocity_x();					
 						v_y   = descendant->get_velocity_y();
-						v_z   = descendant->get_velocity_z();
+						v_z   = descendant->get_velocity_z();		
+			                        P0    = descendant->get_init_P();
+			                        B0    = descendant->get_init_B(); 
 						P     = descendant->get_P(now);
 						dot_P = descendant->get_dot_P(now);
 						B     = descendant->get_B (now);
@@ -534,7 +543,7 @@ else if (type_of_run == 2) {
         	        			        out_res_hid << P <<"\t"<< dot_P<<"\t";
 				                        out_res_hid << x << "\t" << y <<"\t"<< z <<"\t"<< v_x<<"\t"<<v_y<<"\t"<<v_z<<"\t";
 				                        out_res_hid <<lumin*1000*pow(dist_to_sun, 2)<<"\t";
-							out_res_hid <<B<<"\t"<<T + shift + rand_shift<<"\t"<<gl<<"\t"<<gb<<"\t"<<dist_to_sun<<endl;
+							out_res_hid <<B<<"\t"<<T + shift + rand_shift<<"\t"<<gl<<"\t"<<gb<<"\t"<<dist_to_sun<<"\t"<<P0<<"\t"<<B0<<endl;
 							}
 						}
 						

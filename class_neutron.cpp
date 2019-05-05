@@ -663,6 +663,19 @@ double NeutronStar::get_gb(double t, SpecialStar * sun)	{
 
     return b * 180.0 / M_PI;
 }
+
+double NeutronStar::get_init_P () {
+
+	return P;
+
+}	
+
+double NeutronStar::get_init_B () {                     
+
+        return B;
+
+}
+
 //---------------------------------------------------------------//
 // Получение меры дисперсии для данного наблюения пульсара,
 // используется код NE2001 (obsolate)

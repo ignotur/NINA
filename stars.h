@@ -413,6 +413,8 @@ public:
     double get_P   	(double/*, parametrs_B **/);
     double get_dot_P(double/*, parametrs_B **/);
     //double get_L    (double);
+    double get_init_P ();
+    double get_init_B ();
     double get_position_x ();
     double get_position_y ();
     double get_position_z ();

@@ -177,6 +177,9 @@ double norm_distr () {
     dx = chance_1 * sqrt(-2*log(s)/s);
     //dy = chance_2 * sqrt(-2*log(s)/s);
 
+
+    //cout << "Value from the normal distribution "<<dx << endl;
+
     return dx;
 }
 
