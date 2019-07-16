@@ -78,12 +78,36 @@ line `flags= -dynamiclib -flat_namespace -O3` in makefile should be replaced wit
 
 At the moment the file with parameters is called parameters.par. You can run population synthesis with another parameter file
 if you call it this way:
+
 ```
 ./population.out -f -p alternative_parameter_filename.par
 ```
+
+A typical parameter file looks as following:
+```
+Time of run (years): 5.5e8
+Birthrate (stars per thousand years): 7
+Initial radial distribution of stars: A
+Spiral arms: yes
+Initial distribution of pulsars periods: g
+1st parameter of initial distribution of pulsars periods: 0.250
+2st parameter of initial distribution of pulsars periods: 0.150
+Initial distribution of pulsars magnetic fields: g
+1st parameter of initial distribution of pulsars magnetic fields: 12.65
+2st parameter of initial distribution of pulsars magnetic fields: 0.55
+Model of luminocity: C
+1st parameter of luminosity: 0
+2nd parameter of luminosity: 0
+3rd parameter of luminosity: 0
+Model of magnetic field decay: A
+1st parameter of magnetic field decay:  5e5
+2nd parameter of magnetic field decay:  0
+3rd parameter of magnetic field decay:  0
+```
+
 Below I describe a meaning of different parameters in this file.
 
-### Models of magnetic field decay
+#### Models of magnetic field decay
 
 Option A - no magnetic field decay. No additional parameters are required.
 
