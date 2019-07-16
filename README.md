@@ -74,7 +74,7 @@ export LD_LIBRARY_PATH=.
 The compilation of the electron density library requires different flags for Linux, namely the
 line `flags= -dynamiclib -flat_namespace -O3` in makefile should be replaced with `flags=  -fPIC -shared -O3`
 
-## Meaning of different parameters
+## Parameters of the simulation
 
 At the moment the file with parameters is called parameters.par. You can run population synthesis with another parameter file
 if you call it this way:
@@ -106,6 +106,31 @@ Model of magnetic field decay: A
 ```
 
 Below I describe a meaning of different parameters in this file.
+
+#### Time of run
+The simulation starts 5.5e8 years ago. It is recommended to keep this value at a level of approximately 1e9 years to reproduce the oldest pulsars, especially if no magnetic field decay is assumed.
+
+#### Birthrate
+Number of all massive stars (8-45 Msun) born per thousand years. Only a part of them end up as NSs in agreement with Kroupa mass function.
+
+#### Initial radial distribution
+
+Option A - the same as in the article Faucher-Giguere & Kaspi (2006)
+
+Option B - as in the article by van der Kruit (1987)
+
+Option C - radial distribution based on studies of far IR regions, for details see Faucher-Giguere & Kaspi (2006)
+
+Option D - radial distribution based on studies of SNR remnants, for details see Faucher-Giguere & Kaspi (2006)
+
+Option E - radial distribution based on studies of pulsars, for details see Faucher-Giguere & Kaspi (2006)
+
+#### Luminosity models
+Option A - model based on work of Fan et al. (2001). This model requires no additional parameters
+
+Option B - radio brightness is normally distributed in a cone. This model requires two parameters: ds and dlum
+
+Option C - model based on the article by Manchester et al. (2006). This model requires no additional parameters
 
 #### Models of magnetic field decay
 
