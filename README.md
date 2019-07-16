@@ -1,7 +1,7 @@
 NINA code
 ====
 
-## Nova Investigii Neutronicorum Astrorum
+## Nova Investigii Neutronicorum Astrorum (New Study of Neutron Stars)
 
 A computer code to draw synthetic samples of radio pulsars. The code follows the evolution and motion in the Galactic gravitational potential for
  large ensamble of neutron stars formed 
