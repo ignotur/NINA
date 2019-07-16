@@ -73,4 +73,20 @@ export LD_LIBRARY_PATH=.
 
 The compilation of the electron density library requires different flags for Linux, namely the
 line `flags= -dynamiclib -flat_namespace -O3` in makefile should be replaced with `flags=  -fPIC -shared -O3`
+
+## Meaning of different parameters
+
+At the moment the file with parameters is called parameters.par. You can run population synthesis with another parameter file
+if you call it this way:
+```
+./population.out -f -p alternative_parameter_filename.par
+```
+Below I describe a meaning of different parameters in this file.
+
+# Models of magnetic field decay
+
+Option A - no magnetic field decay. No additional parameters are required.
+Option B - piecewise magnetic field decay. It requires two parameters: (1) time before decay and (2) time after decay, before magnetic field dissappers completely
+Option C - magntic field decay in a form decsribed in Aguiler, Pons & Miralles (2008). It requires two parameters: (1) fraction between Hall and Ohmic decay timescales and (2) Ohmnic decay timescale.
+Option D - exponential magnetic field decay. It requires one parameter (1) timescale of magnetic field decay.
  
