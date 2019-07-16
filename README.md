@@ -83,10 +83,13 @@ if you call it this way:
 ```
 Below I describe a meaning of different parameters in this file.
 
-# Models of magnetic field decay
+### Models of magnetic field decay
 
 Option A - no magnetic field decay. No additional parameters are required.
+
 Option B - piecewise magnetic field decay. It requires two parameters: (1) time before decay and (2) time after decay, before magnetic field dissappers completely
+
 Option C - magntic field decay in a form decsribed in Aguiler, Pons & Miralles (2008). It requires two parameters: (1) fraction between Hall and Ohmic decay timescales and (2) Ohmnic decay timescale.
+
 Option D - exponential magnetic field decay. It requires one parameter (1) timescale of magnetic field decay.
  
