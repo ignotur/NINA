@@ -149,6 +149,12 @@ can run python skript tst_p.pdf
 ```
 python tst_p.pdf
 ```
+
+This script plots histogram for key synthetic pulsar parameters including periods, period derivatives, radio luminosties, distribution in galactic latitude and longuitude and plots period - period derivative histogram.
+
+An example of the result is shown below.
+
+
 ![Results of simulations](https://github.com/ignotur/NINA/blob/master/compar.png)
 
  
