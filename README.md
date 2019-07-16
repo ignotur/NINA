@@ -141,4 +141,14 @@ Option B - piecewise magnetic field decay. It requires two parameters: (1) time 
 Option C - magntic field decay in a form decsribed in Aguiler, Pons & Miralles (2008). It requires two parameters: (1) fraction between Hall and Ohmic decay timescales and (2) Ohmnic decay timescale.
 
 Option D - exponential magnetic field decay. It requires one parameter (1) timescale of magnetic field decay.
+
+### Fast check of the population synthesis results
+
+To check fast is the results of the population synthesis have anything to do in comparison to the real population you 
+can run python skript tst_p.pdf
+```
+python tst_p.pdf
+```
+![Results of simulations](https://github.com/ignotur/NINA/blob/master/compar.png)
+
  
