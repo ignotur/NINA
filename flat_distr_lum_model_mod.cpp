@@ -25,9 +25,9 @@ double LMFlat::is_pulsar_visible (double t, SpecialStar * sun, TMap * T_copy, do
     dist_to_sun = sqrt(pow(sun->get_position_x() - x, 2) + pow(sun->get_position_y() - y, 2) + pow(sun->get_position_z() - z, 2));
     //sun->move_to(-t);
 
-    //                w50 = 0.05*get_P(t);
+    w50 = 0.05*P;
 
-    w50 = 6.81e-3*sqrt(P)/sin(i_incl);
+    //w50 = 6.81e-3*sqrt(P)/sin(i_incl);
 
     //		DM = get_DM (t, sun, &l, &b, &sm);
     //cout<<"Same pulsar"<<endl;
