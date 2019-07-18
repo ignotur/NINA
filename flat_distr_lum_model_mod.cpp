@@ -17,7 +17,8 @@ double norm_distr();
 
 double LMFlat::is_pulsar_visible (double t, SpecialStar * sun, TMap * T_copy, double x, double y, double z, double i_incl, double P, double dot_P, float DM) {
     float l, b, sm;
-    double L, eps_P = -1.5, eps_dot_P = 0.5, L_corr=0.8, L_0 = 0.5e-2;
+    //double L, eps_P = -1.5, eps_dot_P = 0.5, L_corr=0.8, L_0 = 0.5e-2;
+    double L, L_corr=0.8;
     double dist_to_sun, lum_min, w50;
     double first[3], second[2];
 
@@ -97,7 +98,22 @@ bool LMFlat::is_beam_on(double P) {
 }
 
 
-LMFlat::LMFlat (vector <double> *) {
+LMFlat::LMFlat (vector <double> * val) {
+
+    //cout <<"Size:: "<< val->size() << endl;
+    //cout <<val->at(0) << "\t" << val->at(1) << "\t" << val->at(2) << endl;
+    //cout <<val->at(3) << "\t" << val->at(4) << "\t" << val->at(5) << endl;
+
+    if ((val->size() == 0) || (val->at(1) == 0)) {
+        eps_P = -1.5;
+        eps_dot_P = 0.5;
+        L_0 = 0.5e-2;
+    }
+    else {
+        eps_P = val->at(1);
+        eps_dot_P = val->at(3);
+        L_0 = val->at(5);
+    }
 }
 
 void LMFlat::print_description (ostream * out) {
@@ -107,7 +123,8 @@ void LMFlat::print_description (ostream * out) {
 }
 
 void LMFlat::print_parameters   (ostream * out) {
-    *out<<"#//            This model has no parameters.                 //"<<endl;
+    *out<<"#//  Parameters of the luminosity model are as following.    //"<<endl;
     *out<<"#//----------------------------------------------------------//"<<endl;
+    *out<<"#// eps_P = "<<eps_P<<" eps_dot_P = "<<eps_dot_P<<" L_0 = "<<L_0<<endl;
 }
 

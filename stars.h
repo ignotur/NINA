@@ -286,6 +286,8 @@ bool   is_beam_on (double);
 LMFlat (vector <double> *);
 void print_description (ostream *);
 void print_parameters  (ostream *); 
+private:
+double eps_P, eps_dot_P, L_0;
 };
 
 //--------------------------------------------------//
