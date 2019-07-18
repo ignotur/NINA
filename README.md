@@ -130,7 +130,7 @@ Option A - model based on work of Fan et al. (2001). This model requires no addi
 
 Option B - radio brightness is normally distributed in a cone. This model requires two parameters: ds and dlum
 
-Option C - model based on the article by Manchester et al. (2006). This model requires no additional parameters
+Option C - model based on the article by Manchester et al. (2006). This model requires three parameters: a, b and C where L = C * pow (P, a) * pow(dot P, b)
 
 #### Models of magnetic field decay
 
