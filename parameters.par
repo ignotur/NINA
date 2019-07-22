@@ -1,4 +1,4 @@
-Time of run (years): 5.5e7
+Time of run (years): 1e8
 Birthrate (stars per thousand years): 7
 Initial radial distribution of stars: A
 Spiral arms: yes
@@ -11,7 +11,7 @@ Initial distribution of pulsars magnetic fields: g
 Model of luminocity: C
 1st parameter of luminosity: -1.5
 2nd parameter of luminosity: 0.5
-3rd parameter of luminosity: 0.005
+3rd parameter of luminosity: 0.002
 Model of magnetic field decay: A
 1st parameter of magnetic field decay:  5e5
 2nd parameter of magnetic field decay:  0

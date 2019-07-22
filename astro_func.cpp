@@ -102,9 +102,9 @@ double S_min (double l, double b, float sm, double dist, double w, double P, flo
     double res, DM_0_parkes, DM_0_swinburne, delta_beam, tau_scatt;
     double W_l_parkes, W_l_swinburne, S_min_Parkes, S_min_Swinburne;
 
-    double N_ch = 96, t_sampl_parkes = 250e-6, t_sampl_swinburne = 125e-6, nu = 1.4e3, delta_nu = 288e6;
+    double N_ch = 96, t_sampl_parkes = 250e-6, t_sampl_swinburne = 125e-6, nu = 1.4e3, delta_nu = 288e6;  // nu and delta_nu should be measured in MHz in principle
     double tau_sampl_parkes = 1.5*t_sampl_parkes, tau_sampl_swinburne = 1.5*t_sampl_swinburne;
-    double beta = 1.5, sigma = 8, T_rec = 21, Tb_sky, G = 0.64, N_p = 2, t_int_parkes = 2100, t_int_swinburne = 265;
+    double beta = 1.5, sigma = 8, T_rec = 21, Tb_sky, G = 0.64, N_p = 2, t_int_parkes = 2100.0, t_int_swinburne = 265.0; // G = 0.64 K/Jy
 
 //    tau_scatt = 1000.*pow(sm/292., 1.2)*dist*pow(nu, -4.4);
 
@@ -128,8 +128,8 @@ double S_min (double l, double b, float sm, double dist, double w, double P, flo
 
 
 
-//  delta_beam = exp(-pow(rand()/rand_high_board, 2));
-    delta_beam = 1.0;
+    delta_beam = exp(-pow(rand() * sqrt(2.0*log(2.0)) /rand_high_board, 2));
+   // delta_beam = 0.5;
     Tb_sky = T_sky (l,b, T_copy);
 
     DM_0_parkes = N_ch*t_sampl_parkes*pow(nu,3)/8299./(delta_nu/1.e6);
