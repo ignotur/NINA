@@ -15,7 +15,7 @@ p=[]; dotp=[]; x=[]; y=[]; z=[]; lum=[]; R=[]; l=[];
 
 
 for i in range (24, num):
-	line = split(lines[i])
+	line = lines[i].split()
 	try:
 		p.append(float(line[0]))
 		dotp.append(log10(abs(float(line[1]))))
@@ -42,14 +42,14 @@ for i in range (24, num):
 			value = value + 360.0
 		l.append( value )
 	except:
-		print line, 'is excluded'
+		print(line, 'is excluded')
 
 standard = open('p_dotp.txt', 'r')
 
 st_p=[]; st_dotp=[]; st_x=[]; st_y=[]; st_z=[]; st_lum=[]; st_R=[]; st_l=[]
 
 for lines in standard.readlines():
-	line = split(lines)
+	line = lines.split()
 	try:
 		st_p.append(float(line[1]))
 		st_dotp.append(log10(abs(float(line[2]))))
@@ -70,12 +70,12 @@ for lines in standard.readlines():
 		st_l.append( value )
 
 	except:
-		print line, 'is excluded'
+		print(line, 'is excluded')
 
 	try:
 		st_lum.append(log10(float(line[6])))
 	except:
-		print line, ' is excluded from luminosity analysis'
+		print(line, ' is excluded from luminosity analysis')
 
 
 st_p1    = np.asarray(st_p)
@@ -135,11 +135,11 @@ st_b_list = np.degrees (st_z_new / st_R_new)
 #plt.ylabel('Relative number')
 #plt.show()
 
-print 'K-S test for periods: ', ks_2samp(st_p, p)
-print 'K-S test for period derivatives: ', ks_2samp(st_dotp, dotp)
-print 'K-S test for z coordinate: ', ks_2samp(b_list, st_b_list)
-print 'K-S test for R coordinate: ', ks_2samp(st_R, R)
-print 'K-S test for Lum: ', ks_2samp(st_lum, lum)
+print('K-S test for periods: ', ks_2samp(st_p, p))
+print('K-S test for period derivatives: ', ks_2samp(st_dotp, dotp))
+print('K-S test for z coordinate: ', ks_2samp(b_list, st_b_list))
+print('K-S test for R coordinate: ', ks_2samp(st_R, R))
+print('K-S test for Lum: ', ks_2samp(st_lum, lum))
 
 ks1 = ks_2samp(st_p, p)
 ks2 = ks_2samp(st_dotp, dotp)
