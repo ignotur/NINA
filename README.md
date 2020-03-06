@@ -145,9 +145,9 @@ Option D - exponential magnetic field decay. It requires one parameter (1) times
 ### Fast check of the population synthesis results
 
 To check fast is the results of the population synthesis have anything to do in comparison to the real population you 
-can run python skript tst_p.pdf
+can run python skript tst_p.py
 ```
-python tst_p.pdf
+python tst_p.py
 ```
 
 This script plots histogram for key synthetic pulsar parameters including periods, period derivatives, radio luminosties, distribution in galactic latitude and longuitude and plots period - period derivative histogram.
