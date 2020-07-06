@@ -142,6 +142,37 @@ Option C - magntic field decay in a form decsribed in Aguiler, Pons & Miralles (
 
 Option D - exponential magnetic field decay. It requires one parameter (1) timescale of magnetic field decay.
 
+### Using bimodal normal distribution for initial periods or magnetic fields
+
+The distribution of initial spin periods and magnetic fields can consists of multiple normal distributions. 
+In this case the parameter file needs to be written in following way:
+
+```
+Time of run (years): 5.5e8
+Birthrate (stars per thousand years): 7
+Initial radial distribution of stars: A
+Spiral arms: yes
+Initial distribution of pulsars periods: g
+1st parameter of initial distribution of pulsars periods: 0.250
+2st parameter of initial distribution of pulsars periods: 0.150
+Initial distribution of pulsars magnetic fields: m
+1st parameter of initial distribution of pulsars magnetic fields: 0.5
+2nd parameter of initial distribution of pulsars magnetic fields: 12.9
+3rd parameter of initial distribution of pulsars magnetic fields: 0.2
+4th parameter of initial distribution of pulsars magnetic fields: 0.5
+5th parameter of initial distribution of pulsars magnetic fields: 11.2
+6th parameter of initial distribution of pulsars magnetic fields: 0.2
+Model of luminocity: C
+1st parameter of luminosity: 0
+2nd parameter of luminosity: 0
+3rd parameter of luminosity: 0
+Model of magnetic field decay: A
+1st parameter of magnetic field decay:  5e5
+2nd parameter of magnetic field decay:  0
+3rd parameter of magnetic field decay:  0
+```
+First and fourth parameters are the weights of corresponding normal distributions. The second/third and fifth/sixth parameters are the mean of the lognormal distribution (magnetic field) or normal distribution (periods). 
+
 ### Fast check of the population synthesis results
 
 To check fast is the results of the population synthesis have anything to do in comparison to the real population you 
