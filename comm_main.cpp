@@ -367,11 +367,13 @@ int shet_i = 0;
 			out_bh << descendant->get_M()<<endl;
 
 		// else: standard pulsar routine
-                if (descendant->is_pulsar_alive(now) && descendant->is_this_ns() && lum_mod->is_beam_on(P))	{
-			
-                    lumin = descendant->is_pulsar_visible(now, &sun_nowaday, &T_copy);
+                if (descendant->is_this_ns())	{
 
-                    if (lumin)				{
+		    if (lum_mod->is_beam_on(P) && descendant->is_pulsar_alive(now)) {			
+	                    lumin = descendant->is_pulsar_visible(now, &sun_nowaday, &T_copy);
+		    }
+
+                    if (lumin && descendant->is_pulsar_alive(now) && lum_mod->is_beam_on(P))				{
                         counter++;
                         x     = descendant->get_position_x();
                         y     = descendant->get_position_y();
@@ -479,12 +481,14 @@ else if (type_of_run == 2) {
 				out_bh << descendant->get_M()<<endl;
 
 				// else - standard pulsar routine
-				if (descendant->is_pulsar_alive(now) && descendant->is_this_ns() && lum_mod->is_beam_on(P))	{
+				if (descendant->is_this_ns())	{
 					descendant->move_to(now);
-					lumin = descendant->is_pulsar_visible(now, &sun_nowaday, &T_copy);
 
+					if (descendant->is_pulsar_alive(now) && lum_mod->is_beam_on(P)) {
+						lumin = descendant->is_pulsar_visible(now, &sun_nowaday, &T_copy);
+					}
 
-					if (lumin)				{
+					if (descendant->is_pulsar_alive(now) && lum_mod->is_beam_on(P) && lumin) {
 						counter++;
 						x     = descendant->get_position_x();
 						y     = descendant->get_position_y();
