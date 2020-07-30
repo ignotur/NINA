@@ -369,7 +369,8 @@ base_lm  = lm;
 
 }
 //-----------------------------------------------------------------------
-// Не погас ли ещё пульсар? Алгоритм проверки как у Faucher
+// Check if the pulsar has already crossed the death line
+// The check is exactly the same as in Faucher-Giguere & Kaspi (2006) article
 
 bool NeutronStar::is_pulsar_alive(double t) {
 

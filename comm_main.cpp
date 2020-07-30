@@ -470,7 +470,7 @@ else if (type_of_run == 2) {
 			shift += ancester->get_t_He      ();
 			
 			if (shift + T + rand_shift < 0)		{
-				ancester->move_to (shift); // На сколько нужно сдвинуть, действительно мы не знаем времени рождения звезды
+				ancester->move_to (shift); 
 				descendant = new NeutronStar (T + shift + rand_shift, ancester, decay_model, lum_mod, p_distr, b_distr);
 				P     = descendant->get_P(now);
 
