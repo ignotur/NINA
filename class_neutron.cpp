@@ -389,7 +389,7 @@ bool NeutronStar::is_pulsar_alive(double t) {
 
 
 
-    return true;
+    //return true;
 
     if (get_B(t)/pow(get_P(t), 2.)>0.12e12) {
         return true;
